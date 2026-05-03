@@ -135,7 +135,7 @@
             border: 1px solid var(--border-ink);
             padding: 10px;
             box-sizing: border-box;
-            position: relative;
+            position: relative; /* Permite posicionar el botón dentro */
         }
         .image-container img { 
             width: 100%; 
@@ -148,18 +148,21 @@
             filter: sepia(0) contrast(1);
         }
         .btn-ampliar {
-            background-color: var(--text-ink);
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(26, 28, 29, 0.85);
             color: var(--bg-paper);
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
-            border: none;
-            padding: 8px 15px;
-            margin-top: 10px;
+            border: 1px solid var(--border-ink);
+            padding: 8px 12px;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 12px;
+            font-size: 11px;
+            z-index: 10;
         }
-        .btn-ampliar:hover { background-color: var(--accent-blood); color: #fff; }
+        .btn-ampliar:hover { background-color: var(--accent-blood); color: #fff; border-color: var(--accent-blood); }
 
         /* LAYOUTS MULTIPLES */
         .split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; align-items: start; }
@@ -593,26 +596,30 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
             <div class="image-wrapper">
                 <div class="image-container">
                     <img src="imagenes pag/paleta hospital aoartamento.png" alt="Paleta ubicaciones">
+                    <button class="btn-ampliar" onclick="openModal('imagenes pag/paleta hospital aoartamento.png')">[ 🔍 Ampliar ]</button>
                 </div>
-                <button class="btn-ampliar" onclick="openModal('imagenes pag/paleta hospital aoartamento.png')">[ 🔍 Ampliar Imagen ]</button>
             </div>
         </div>
 
         <p><strong>ACENTOS NARRATIVOS COLOR DE HABITACIONES MENTALES</strong></p>
-        <div class="image-wrapper">
-            <div class="image-container">
-                <img src="imagenes pag/paleta habitaciones.png" alt="Paleta habitaciones">
+        <div class="split-layout" style="align-items: center;">
+            <div class="image-wrapper" style="margin: 0;">
+                <div class="image-container">
+                    <img src="imagenes pag/paleta habitaciones.png" alt="Paleta habitaciones">
+                    <button class="btn-ampliar" onclick="openModal('imagenes pag/paleta habitaciones.png')">[ 🔍 Ampliar ]</button>
+                </div>
             </div>
-            <button class="btn-ampliar" onclick="openModal('imagenes pag/paleta habitaciones.png')">[ 🔍 Ampliar Imagen ]</button>
+            <div>
+                <ul>
+                    <li>VERDE - IRA</li>
+                    <li>NARANJA - ANSIEDAD</li>
+                    <li>VIOLETA - MELANCOLÍA</li>
+                    <li>AZUL - TRISTEZA</li>
+                    <li>BLANCO - MIEDO</li>
+                    <li>ROJO - DOCTOR EN REPRESENTACIÓN DE LA MUERTE</li>
+                </ul>
+            </div>
         </div>
-        <ul>
-            <li>VERDE - IRA</li>
-            <li>NARANJA - ANSIEDAD</li>
-            <li>VIOLETA - MELANCOLÍA</li>
-            <li>AZUL - TRISTEZA</li>
-            <li>BLANCO - MIEDO</li>
-            <li>ROJO - DOCTOR EN REPRESENTACIÓN DE LA MUERTE</li>
-        </ul>
 
         <!-- FOTOGRAFÍA -->
         <h2 id="fotografia">FOTOGRAFÍA</h2>
@@ -626,15 +633,15 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
                 <p style="text-align: center; font-size: 10px;">FOTOGRAFÍA DE UNA HABITACIÓN DE UN HOSPITAL</p>
                 <div class="image-container">
                     <img src="imagenes pag/cuarto hospital.png" alt="Habitación Hospital">
+                    <button class="btn-ampliar" onclick="openModal('imagenes pag/cuarto hospital.png')">[ 🔍 Ampliar ]</button>
                 </div>
-                <button class="btn-ampliar" onclick="openModal('imagenes pag/cuarto hospital.png')">[ 🔍 Ampliar Imagen ]</button>
             </div>
             <div class="image-wrapper">
                 <p style="text-align: center; font-size: 10px;">FOTOGRAFÍA DE UN PASILLO LARGO DE HOSPITAL</p>
                 <div class="image-container">
                     <img src="imagenes pag/hospital.png" alt="Pasillo Hospital">
+                    <button class="btn-ampliar" onclick="openModal('imagenes pag/hospital.png')">[ 🔍 Ampliar ]</button>
                 </div>
-                <button class="btn-ampliar" onclick="openModal('imagenes pag/hospital.png')">[ 🔍 Ampliar Imagen ]</button>
             </div>
         </div>
 
@@ -647,8 +654,8 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
             <div class="image-wrapper">
                 <div class="image-container">
                     <img src="imagenes pag/28 dias.png" alt="28 Days Later">
+                    <button class="btn-ampliar" onclick="openModal('imagenes pag/28 dias.png')">[ 🔍 Ampliar ]</button>
                 </div>
-                <button class="btn-ampliar" onclick="openModal('imagenes pag/28 dias.png')">[ 🔍 Ampliar Imagen ]</button>
             </div>
         </div>
 
@@ -657,8 +664,8 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
             <div class="image-wrapper">
                 <div class="image-container">
                     <img src="imagenes pag/cisne negro.png" alt="Black Swan">
+                    <button class="btn-ampliar" onclick="openModal('imagenes pag/cisne negro.png')">[ 🔍 Ampliar ]</button>
                 </div>
-                <button class="btn-ampliar" onclick="openModal('imagenes pag/cisne negro.png')">[ 🔍 Ampliar Imagen ]</button>
             </div>
         </div>
         
@@ -667,8 +674,8 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
             <div class="image-wrapper">
                 <div class="image-container">
                     <img src="imagenes pag/sleepy.png" alt="Sleepy Hollow">
+                    <button class="btn-ampliar" onclick="openModal('imagenes pag/sleepy.png')">[ 🔍 Ampliar ]</button>
                 </div>
-                <button class="btn-ampliar" onclick="openModal('imagenes pag/sleepy.png')">[ 🔍 Ampliar Imagen ]</button>
             </div>
         </div>
 
@@ -677,8 +684,8 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
             <div class="image-wrapper">
                 <div class="image-container">
                     <img src="imagenes pag/panicroom.png" alt="Panic Room">
+                    <button class="btn-ampliar" onclick="openModal('imagenes pag/panicroom.png')">[ 🔍 Ampliar ]</button>
                 </div>
-                <button class="btn-ampliar" onclick="openModal('imagenes pag/panicroom.png')">[ 🔍 Ampliar Imagen ]</button>
             </div>
         </div>
 
@@ -697,8 +704,8 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
                 <div class="image-wrapper">
                     <div class="image-container">
                         <img src="imagenes pag/canont5i.png" alt="Canon T5i">
+                        <button class="btn-ampliar" onclick="openModal('imagenes pag/canont5i.png')">[ 🔍 Ampliar ]</button>
                     </div>
-                    <button class="btn-ampliar" onclick="openModal('imagenes pag/canont5i.png')">[ 🔍 Ampliar Imagen ]</button>
                 </div>
             </div>
             <div>
@@ -709,8 +716,8 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
                 <div class="image-wrapper">
                     <div class="image-container">
                         <img src="imagenes pag/nikon.png" alt="Nikon B700">
+                        <button class="btn-ampliar" onclick="openModal('imagenes pag/nikon.png')">[ 🔍 Ampliar ]</button>
                     </div>
-                    <button class="btn-ampliar" onclick="openModal('imagenes pag/nikon.png')">[ 🔍 Ampliar Imagen ]</button>
                 </div>
             </div>
         </div>
@@ -775,20 +782,20 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
             <div class="image-wrapper">
                 <div class="image-container">
                     <img src="imagenes pag/zona a.jpeg" alt="Zona A">
+                    <button class="btn-ampliar" onclick="openModal('imagenes pag/zona a.jpeg')">[ 🔍 Ampliar ]</button>
                 </div>
-                <button class="btn-ampliar" onclick="openModal('imagenes pag/zona a.jpeg')">[ 🔍 Ampliar ]</button>
             </div>
             <div class="image-wrapper">
                 <div class="image-container">
                     <img src="imagenes pag/zona b.jpeg" alt="Zona B">
+                    <button class="btn-ampliar" onclick="openModal('imagenes pag/zona b.jpeg')">[ 🔍 Ampliar ]</button>
                 </div>
-                <button class="btn-ampliar" onclick="openModal('imagenes pag/zona b.jpeg')">[ 🔍 Ampliar ]</button>
             </div>
             <div class="image-wrapper">
                 <div class="image-container">
                     <img src="imagenes pag/zona z.jpeg" alt="Zona C">
+                    <button class="btn-ampliar" onclick="openModal('imagenes pag/zona z.jpeg')">[ 🔍 Ampliar ]</button>
                 </div>
-                <button class="btn-ampliar" onclick="openModal('imagenes pag/zona z.jpeg')">[ 🔍 Ampliar ]</button>
             </div>
         </div>
 
@@ -856,15 +863,15 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
         <div class="image-wrapper">
             <div class="image-container">
                 <img src="imagenes pag/moodboard 1.png" alt="Moodboard 1">
+                <button class="btn-ampliar" onclick="openModal('imagenes pag/moodboard 1.png')">[ 🔍 Ampliar ]</button>
             </div>
-            <button class="btn-ampliar" onclick="openModal('imagenes pag/moodboard 1.png')">[ 🔍 Ampliar Imagen ]</button>
         </div>
 
         <div class="image-wrapper">
             <div class="image-container">
                 <img src="imagenes pag/moodboard 2.png" alt="Moodboard 2">
+                <button class="btn-ampliar" onclick="openModal('imagenes pag/moodboard 2.png')">[ 🔍 Ampliar ]</button>
             </div>
-            <button class="btn-ampliar" onclick="openModal('imagenes pag/moodboard 2.png')">[ 🔍 Ampliar Imagen ]</button>
         </div>
 
         <div style="text-align: center; margin-top: 80px;">
