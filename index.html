@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carpeta de Producción - La Máscara de la Muerte Roja</title>
     <style>
-        /* ÑAMBOPORÃ HAG̃UA KUATIA / MÁQUINA DE ESCRIBIR (SLEEPY HOLLOW VIBES) */
+        /* ESTÉTICA ARCHIVO PSIQUIÁTRICO / MÁQUINA DE ESCRIBIR */
         :root {
             --bg-dark: #0f1112; 
             --bg-paper: #e4e6e1;
@@ -20,36 +20,31 @@
             background-image: radial-gradient(circle at center, #1b1e20 0%, #08090a 100%);
             color: var(--text-ink);
             margin: 0;
-            padding: 40px 0;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* KUATIA ÑEMOĨ (Efecto hoja vieja) */
-        .page {
-            width: 210mm; /* Ancho A4/Carta estándar */
-            min-height: 297mm; /* Alto A4/Carta estándar */
+        /* CONTENEDOR PRINCIPAL (Una sola página continua) */
+        .document-wrapper {
+            width: 100%;
+            max-width: 210mm; /* Ancho estándar de lectura */
             background-color: var(--bg-paper);
             background-image: 
                 radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.15) 150%),
                 repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.01) 2px, rgba(0,0,0,0.01) 4px);
-            margin-bottom: 30px;
-            padding: 25mm 20mm;
+            padding: 40px 50px;
             box-sizing: border-box;
             box-shadow: 0 15px 35px rgba(0,0,0,0.8);
             position: relative;
-            overflow: hidden;
             text-shadow: 0px 0px 1px rgba(0,0,0,0.2);
-            height: auto;
-            /* Evita que un .page se divida por la mitad al imprimir si cabe en una página */
-            page-break-inside: auto; 
         }
 
         .stamp {
             position: absolute;
             top: 30px;
-            right: 20px;
+            right: 30px;
             color: var(--accent-blood);
             font-size: 20pt;
             font-weight: bold;
@@ -62,25 +57,34 @@
             z-index: 10;
         }
 
-        /* HAI HA ÑEMOĨ */
+        /* TIPOGRAFÍA Y ESTRUCTURA */
         h1, h2, h3, h4 { font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-top: 0; color: #000; }
-        h1 { font-size: 26pt; text-align: center; border-bottom: 2px solid var(--text-ink); padding-bottom: 10px; }
-        h2 { font-size: 16pt; border-bottom: 1px dashed var(--border-ink); padding-bottom: 5px; margin-top: 30px; margin-bottom: 20px; page-break-after: avoid; }
-        h3 { font-size: 12pt; margin-top: 20px; text-decoration: underline; page-break-after: avoid; }
+        h1 { font-size: 26pt; text-align: center; border-bottom: 2px solid var(--text-ink); padding-bottom: 10px; margin-top: 50px; }
+        h2 { font-size: 16pt; border-bottom: 1px dashed var(--border-ink); padding-bottom: 5px; margin-top: 50px; margin-bottom: 20px; scroll-margin-top: 40px; }
+        h3 { font-size: 13pt; margin-top: 30px; text-decoration: underline; }
         
         p, ul, li { font-size: 11pt; line-height: 1.6; text-align: justify; margin-bottom: 15px; }
-        
-        /* Ani hag̃ua opyta nandi kuatia */
-        p, ul, table { page-break-inside: avoid; }
 
-        /* MARANDU (Estilo Formulario/Expediente) */
+        /* TABLA DE CONTENIDO */
+        .toc {
+            background-color: rgba(0,0,0,0.05);
+            border: 1px solid var(--border-ink);
+            padding: 20px;
+            margin: 40px 0;
+        }
+        .toc h3 { margin-top: 0; text-align: center; border-bottom: 1px solid var(--border-ink); padding-bottom: 10px; border: none; }
+        .toc ul { list-style-type: none; padding-left: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .toc li::before { content: "► "; color: var(--accent-blood); font-size: 10px; }
+        .toc a { color: var(--text-ink); text-decoration: none; font-weight: bold; transition: color 0.2s; }
+        .toc a:hover { color: var(--accent-blood); text-decoration: underline; }
+
+        /* FICHA TÉCNICA */
         .ficha-tecnica {
             border: 2px solid var(--border-ink);
             padding: 20px;
             margin: 30px 0;
             background-color: rgba(0,0,0,0.02);
             position: relative;
-            page-break-inside: avoid;
         }
         .ficha-tecnica::before {
             content: "DATOS DEL EXPEDIENTE / REGISTRO";
@@ -100,126 +104,106 @@
         }
         .ficha-grid strong { text-decoration: underline; text-underline-offset: 4px; }
 
-        /* GUION PRE-WRAP */
+        /* FORMATO DEL GUION (Fondo blanco, formato real) */
+        .script-container {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 40px;
+            border: 1px solid #ccc;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            margin: 30px 0;
+            font-family: 'Courier New', Courier, monospace;
+            text-shadow: none;
+        }
         .script-text {
             white-space: pre-wrap;
             font-size: 11pt;
-            line-height: 1.5;
-            padding: 0 5%;
-            /* Permitir cortes internos en el guion */
-            page-break-inside: auto; 
+            line-height: 1.6;
+        }
+        .script-text strong {
+            font-weight: bold;
         }
 
-        /* TA'ÃNGA RENDA */
-        .image-placeholder {
+        /* IMÁGENES Y BOTÓN DE AMPLIAR */
+        .image-wrapper {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .image-container {
             width: 100%;
-            min-height: 200px;
             background-color: rgba(0,0,0,0.03);
             border: 1px solid var(--border-ink);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--border-ink);
-            font-style: italic;
-            margin: 15px 0;
-            text-align: center;
-            padding: 20px;
+            padding: 10px;
             box-sizing: border-box;
             position: relative;
-            height: auto; 
-            overflow: visible;
-            page-break-inside: avoid; /* Crucial para evitar cortar imágenes */
         }
-        .image-placeholder img { 
+        .image-container img { 
             width: 100%; 
             height: auto; 
             display: block; 
             filter: sepia(0.2) contrast(1.1); 
+            transition: filter 0.3s;
         }
+        .image-container img:hover {
+            filter: sepia(0) contrast(1);
+        }
+        .btn-ampliar {
+            background-color: var(--text-ink);
+            color: var(--bg-paper);
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            border: none;
+            padding: 8px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 12px;
+        }
+        .btn-ampliar:hover { background-color: var(--accent-blood); color: #fff; }
 
-        /* ÑEMOHENDA */
-        .split-layout { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 30px; 
-            margin-bottom: 30px; 
-            align-items: start; 
-            page-break-inside: avoid; /* Mantener texto e imagen juntos si es posible */
-        }
-        .split-layout .image-placeholder { margin: 0; min-height: 220px; }
-        .split-layout-3 { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr 1fr; 
-            gap: 20px; 
-            margin-bottom: 20px; 
-            page-break-inside: avoid; 
-        }
-        
-        /* PELÍCULA REFERENTES ÑEMOHENDA */
-        .movie-reference { margin-bottom: 40px; page-break-inside: avoid; }
-        .movie-reference .image-placeholder { min-height: 350px; margin-top: 15px; border-width: 2px; }
+        /* LAYOUTS MULTIPLES */
+        .split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; align-items: start; }
+        .split-layout-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .movie-reference { margin-bottom: 50px; }
 
         /* TABLAS ESTILO INFORME */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 20px; font-size: 10pt; page-break-inside: avoid;}
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 20px; font-size: 10pt; }
         th, td { border: 1px solid var(--text-ink); padding: 10px; text-align: left; vertical-align: top; }
         th { font-weight: bold; text-decoration: underline; background-color: rgba(0,0,0,0.05); }
 
-        /* REGLAS DE IMPRESIÓN (PDF) OPTIMIZADAS */
-        @media print {
-            @page { 
-                size: A4 portrait; /* Fuerza tamaño carta/A4 */
-                margin: 0; /* Quitamos márgenes del navegador, usamos los de .page */
-            }
-            html, body {
-                width: 210mm;
-                background-color: var(--bg-paper) !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                -webkit-print-color-adjust: exact !important; 
-                print-color-adjust: exact !important;
-            }
-            
-            /* Cada sección importante rompe página */
-            .page { 
-                margin: 0 !important; 
-                padding: 25mm 20mm !important;
-                box-shadow: none !important; 
-                border: none !important; 
-                page-break-after: always; /* Cada .page es una hoja nueva */
-                height: auto !important;
-                min-height: 297mm !important; /* Asegura altura mínima A4 */
-                box-sizing: border-box;
-            }
+        /* MODAL (Visor de imágenes) */
+        .modal {
+            display: none; position: fixed; z-index: 9999; padding-top: 50px;
+            left: 0; top: 0; width: 100%; height: 100%; overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content {
+            margin: auto; display: block; max-width: 90%; max-height: 85vh; object-fit: contain;
+        }
+        .close {
+            position: absolute; top: 15px; right: 35px; color: #f1f1f1;
+            font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        .close:hover, .close:focus { color: var(--accent-blood); text-decoration: none; cursor: pointer; }
 
-            /* Prevenir cortes a la mitad de elementos clave */
-            h2, h3 { page-break-after: avoid !important; }
-            .split-layout, .split-layout-3, .movie-reference, .ficha-tecnica, table, .image-placeholder { 
-                page-break-inside: avoid !important; 
-            }
-            
-            /* El guion necesita poder romperse entre páginas */
-            .script-text {
-                page-break-inside: auto !important;
-            }
+        @media (max-width: 768px) {
+            .split-layout, .split-layout-3, .toc ul { grid-template-columns: 1fr; }
+            .document-wrapper { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ================== KUATIA 1: PORTADA ================== -->
-    <div class="page">
+    <div class="document-wrapper">
         <div class="stamp">ARCHIVADO</div>
         
-        <div style="text-align: center; margin-top: 60px;">
-            <h1>LA MÁSCARA DE LA MUERTE ROJA</h1>
-            <p style="text-align: center; letter-spacing: 2px;">CARPETA DE PRODUCCIÓN</p>
-        </div>
+        <!-- ENCABEZADO -->
+        <h1>LA MÁSCARA DE LA MUERTE ROJA</h1>
+        <p style="text-align: center; letter-spacing: 2px; font-weight: bold;">CARPETA DE PRODUCCIÓN</p>
 
-        <div class="ficha-tecnica" style="margin-top: 50px;">
+        <!-- FICHA TÉCNICA -->
+        <div class="ficha-tecnica">
             <div class="ficha-grid">
-                <div><strong>TÍTULO:</strong></div>
-                <div>La Máscara de la Muerte Roja</div>
-                
                 <div><strong>AÑO:</strong></div>
                 <div>2026</div>
                 
@@ -233,329 +217,45 @@
                 <div>Suspenso, Terror psicológico</div>
             </div>
         </div>
-    </div>
 
-    <!-- ================== KUATIA 2: SINOPSIS HA JUSTIFICACIÓN ================== -->
-    <div class="page">
-        <h2>SINOPSIS</h2>
+        <!-- TABLA DE CONTENIDO -->
+        <div class="toc">
+            <h3>ÍNDICE DEL EXPEDIENTE</h3>
+            <ul>
+                <li><a href="#sinopsis">Sinopsis</a></li>
+                <li><a href="#justificacion">Justificación</a></li>
+                <li><a href="#guion">Guión</a></li>
+                <li><a href="#tratamiento">Tratamiento Audiovisual</a></li>
+                <li><a href="#arte">Dirección de Arte</a></li>
+                <li><a href="#color">Tono y Paleta de Colores</a></li>
+                <li><a href="#fotografia">Fotografía</a></li>
+                <li><a href="#referentes">Referentes Cinematográficos</a></li>
+                <li><a href="#equipo">Equipo Requerido</a></li>
+                <li><a href="#sonido">Sonido</a></li>
+                <li><a href="#montaje">Montaje</a></li>
+                <li><a href="#circulacion">Propuesta de Circulación</a></li>
+                <li><a href="#moodboard">Moodboard</a></li>
+            </ul>
+        </div>
+
+        <!-- SINOPSIS -->
+        <h2 id="sinopsis">SINOPSIS</h2>
         <p>Un reconocido escritor de 30 años se encierra voluntariamente en su departamento, dominado por el miedo a una pandemia fuera de control. Hipocondríaco y de imaginación desbordada, convierte su refugio en un espacio mental donde surgen presencias irreales que encarnan posturas ideológicas y emociones frente a la crisis. Estas figuras lo confrontan, lo acompañan y lo desgastan, mientras su paranoia crece hasta el punto de quiebre. Aislado del mundo, pierde la capacidad de distinguir realidad y delirio. Su deterioro culmina en la muerte, mientras en el televisor se escucha el anuncio de su fallecimiento como una noticia más.</p>
 
-        <h2>JUSTIFICACIÓN</h2>
+        <!-- JUSTIFICACIÓN -->
+        <h2 id="justificacion">JUSTIFICACIÓN</h2>
         <p>Este proyecto surge del interés del grupo por explorar lo que ocurre en la mente de una persona cuando se enfrenta al encierro prolongado y al miedo constante. A través de la historia de un escritor que decide aislarse voluntariamente en medio de una pandemia, la propuesta no se centra tanto en el acontecimiento externo, sino en las transformaciones internas que este provoca. El enfoque está puesto en estados como la paranoia, la ansiedad y la sensación de no poder escapar, entendidos como experiencias profundamente humanas en contextos de crisis.</p>
         <p>La motivación principal del grupo radica en pensar el encierro más allá de lo físico, como un espacio mental que puede volverse inestable. En situaciones como una pandemia, el hogar deja de ser únicamente un lugar seguro y comienza a transformarse en un entorno ambiguo, donde la protección también puede generar angustia. Esta contradicción es fundamental en el desarrollo del personaje: su decisión de aislarse nace del miedo, pero termina intensificandose.</p>
         <p>En este contexto aparecen las “presencias”, entendidas como manifestaciones simbólicas de distintas posturas frente al miedo. No son entidades reales, sino fragmentos del propio pensamiento del personaje que toman forma y lo confrontan. A través de ellas se evidencian tensiones internas como la necesidad de control, la negación, el pánico o la resignación. El grupo propone mantener una cierta ambigüedad en su representación, de modo que no se establezca con claridad si pertenecen únicamente a su mente o si forman parte de una realidad alterada.</p>
         <p>Asimismo, el proyecto plantea una reflexión sobre el papel de los medios de comunicación en la construcción del miedo. El televisor, como único vínculo del personaje con el exterior, no solo cumple una función informativa, sino que se convierte en un elemento que refuerza su paranoia. De esta manera, se busca cuestionar cómo, en contextos de crisis, la exposición constante a ciertos discursos puede afectar la percepción de la realidad.</p>
-    </div>
-
-    <!-- ================== KUATIA 3: JUSTIFICACIÓN CONT. HA DIRECCIÓN ================== -->
-    <div class="page">
         <p>Desde lo visual y lo sensorial, el grupo conecta esta propuesta con una exploración más amplia sobre la percepción y la experiencia emocional. El espacio del departamento no se mantiene estático, sino que se transforma a medida que el personaje se deteriora. La atmósfera, la luz y los elementos que lo componen reflejan ese estado mental cambiante, generando una experiencia que no solo se comprende, sino que también se percibe.</p>
         <p>El desenlace, en el que el personaje muere mientras su fallecimiento es anunciado en las noticias como un hecho más, refuerza la distancia entre lo individual y lo colectivo. Mientras su mundo interno colapsa, el exterior continúa funcionando con normalidad, diluyendo su experiencia en el flujo de información. Esta decisión responde al interés del grupo por evidenciar cómo las tragedias personales pueden perderse en medio de una crisis global.</p>
         <p>En conjunto, el proyecto busca reflexionar sobre la fragilidad de la mente humana frente al aislamiento y el miedo, así como sobre la delgada línea que separa la realidad de la percepción. Más que ofrecer respuestas cerradas, el grupo propone generar una experiencia que invite a cuestionar esas fronteras y a reconocer la complejidad de los estados emocionales en situaciones límite.</p>
-        
-        <h2>TRATAMIENTO AUDIOVISUAL</h2>
-        <h3>PROPUESTA DE DIRECCIÓN</h3>
-        <p>La dirección apuesta por un realismo contenido que se va quebrando. En los primeros minutos, todo luce plausible: un hombre, una pantalla encendida, noticias del colapso sanitario. La cámara es observacional, busca mostrar al protagonista como alguien que existe dentro de un mundo ahora reducido a cuatro paredes. Sin embargo, a medida que otras presencias comienzan a aparecer en ese mismo espacio sin explicación, sin ser motivo de alarma y sin que nadie las haya invitado, el espacio empieza a volverse disperso y fragmentado. Múltiples presencias que buscan relacionarse entre sí y con él, pero que a la vez viven completamente separadas. La lógica se erosiona lentamente, como la conciencia de alguien que se apaga. Con esto se busca plasmar el viaje psicológico en el que el protagonista se ve inmerso: uno en el que la realidad y la fantasía se vuelven progresivamente difusas e indistinguibles.</p>
-    </div>
 
-    <!-- ================== KUATIA 4: DIRECCIÓN CONT. HA ARTE ================== -->
-    <div class="page">
-        <p>El protagonista no tiene nombre. Su contexto no importa. Es un cuerpo encerrado, y eso es suficiente, las presencias que habitan junto a él no son fantasmas ni alucinaciones convencionales. Son estados psíquicos encarnados: partes de él mismo tan ajenas que se han vuelto físicamente visibles. Cinco fragmentos que representan las respuestas más viscerales e íntimas al encierro. La ira de quien siente que su lugar en el mundo se ha vuelto irrelevante. La desesperación de quien ve que no hay nada que hacer para cambiar lo que ocurre afuera. La tristeza y la melancolía de quien piensa en la vida que tenía y que ya no puede tocar. El miedo que opera en dos direcciones simultáneas: el terror al encierro perpetuo y el terror igualmente paralizante de salir. Y por último la negación, el fragmento que se desentiende de todo, que no se mueve, que actúa como si nada de esto estuviera pasando.</p>
-        <p>La dirección de actores buscará que cada presencia tenga una fisicalidad completamente distinta, donde no solo la actuación marque la diferencia sino que la cámara, el color y todos los elementos visuales permitan leer cada fragmento como una entidad única. Iguales en origen, irreconocibles entre sí. Se busca una reflexión profunda e íntima de cada uno de estos fragmentos en sus espacios individuales y en sus interacciones con el protagonista se busca una charla con sigo mismo de una manera subjetiva.</p>
-        <p>El escenario es uno solo y está pensado para funcionar simultáneamente como espacio físico y como espacio etéreo. Un lugar opresivo donde la sensación de encierro se hace marcada y constante, y donde al mismo tiempo se ve reflejada la psique más íntima del protagonista. El departamento no es solo donde ocurre la historia: es la historia misma.</p>
-        <p>La estructura narrativa es deliberadamente no lineal. No hay un inicio, un nudo y un desenlace. Lo que hay es una exploración, un estudio de personaje representado físicamente, donde el tiempo avanza pero no necesariamente hacia ningún lugar, en donde ciertos eventos pueden estar pasando antes o después de otros.</p>
-
-        <h2>DIRECCIÓN DE ARTE</h2>
-        <h3>LOS ESCENARIOS</h3>
-        <p>El espacio central de la historia es un apartamento doméstico intervenido para funcionar como un lugar que se consume a sí mismo. La decisión de limitar las locaciones a un número reducido de áreas dentro de este espacio no es una restricción de producción sino una decisión narrativa: entre más pequeño y delimitado sea el mundo visible, más opresiva se vuelve la presencia de todo lo que sucede dentro.</p>
-    </div>
-
-    <!-- ================== KUATIA 5: ARTE CONT. HA PERSONAJES ================== -->
-    <div class="page">
-        <p>El apartamento comienza ordenado, habitado, reconocible. A medida que las interacciones entre el protagonista y los fragmentos se suceden, el espacio se degrada de manera progresiva y visible. La basura se acumula, los objetos pierden su lugar, las superficies se llenan. Este deterioro no responde a ninguna acción concreta dentro de la historia: simplemente ocurre, como si el espacio estuviera respondiendo al estado interior del protagonista. Al final del corto, el apartamento es irreconocible respecto a lo que era al inicio.</p>
-        <p>El pasillo largo del edificio funciona como espacio de transición entre estados. Es un lugar que atraviesa los lugares donde ocurren las interacciones y las reflexiones. Sus proporciones que son largas, estrechas, con una perspectiva que hace sentir al personaje principal como si lo tuviese que recorrer eternamente, refuerzan la sensación de encierro incluso cuando el personaje está en movimiento. Es el único espacio exterior al apartamento y paradójicamente es igual de claustrofóbico.</p>
-
-        <h3>LOS PERSONAJES</h3>
-        <p>Cada fragmento está definido por un color que lo satura completamente: vestuario, elementos de utilería asociados, y tratamiento de luz en sus escenas. Los cinco colores son azul, violeta, verde, naranja y blanco. La asignación de color no responde a una jerarquía ni a una teoría cromática específica: el color es tan abrumador e inmediato que funciona como identificador puro, una señal clara de que cada uno de estos epsacios es distinto y está alejado de los demás. El espectador aprende a leer cada presencia antes de que hable o se mueva.</p>
-        <p>El protagonista no tiene un color asignado. Su paleta es neutra, deslavada, sin pertenencia cromática. Visualmente es el único personaje que no pertenece a ningún estado definido, lo cual lo convierte paradójicamente en el más perdido de todos los que habitan el espacio.</p>
-        <p>La saturación del color de los fragmentos contrasta deliberadamente con el tono general del apartamento, que se mantiene en grises, beiges deteriorados y blancos sucios. Cuando un fragmento entra en escena, su color irrumpe en ese ambiente como algo que no debería estar ahí.</p>
-        <p>La bata roja del doctor es el único elemento cromático que no pertenece al sistema de los cinco fragmentos. Es un rojo diferente al de cualquier otro elemento visual del corto: más oscuro, más definitivo. Aparece una sola vez y no necesita repetirse.</p>
-    </div>
-
-    <!-- ================== KUATIA 6: COLOR ================== -->
-    <div class="page">
-        <h3>TONO Y PALETA DE COLORES</h3>
-        <p>La paleta general estará inspirada en espacios clínicos y psiquiátricos. No se buscará un blanco puro, sino que quiere lograr una atmósfera fría, gastada y emocionalmente incómoda.</p>
-        
-        <div class="split-layout">
-            <div>
-                <p><strong>Los colores principales serán:</strong></p>
-                <ul>
-                    <li>HOSPITAL</li>
-                    <li>APARTAMENTO</li>
-                    <li>PASILLO</li>
-                </ul>
-                <p>Estos tonos deberán aparecer tanto en el apartamento como en el hospital y el pasillo mental, para que los tres espacios parezcan conectados por la misma crisis interior.</p>
-            </div>
-            <div class="image-placeholder">
-                <img src="imagenes pag/paleta hospital aoartamento.png" alt="Paleta ubicaciones">
-            </div>
-        </div>
-
-        <div class="split-layout">
-            <div class="image-placeholder">
-                <img src="imagenes pag/paleta habitaciones.png" alt="Paleta habitaciones">
-            </div>
-            <div>
-                <p><strong>ACENTOS NARRATIVOS COLOR DE HABITACIONES MENTALES:</strong></p>
-                <ul>
-                    <li>VERDE - IRA</li>
-                    <li>NARANJA - ANSIEDAD</li>
-                    <li>VIOLETA - MELANCOLÍA</li>
-                    <li>AZUL - TRISTEZA</li>
-                    <li>BLANCO - MIEDO</li>
-                    <li>ROJO - DOCTOR EN REPRESENTACIÓN DE LA MUERTE</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================== KUATIA 7: FOTOGRAFÍA ================== -->
-    <div class="page">
-        <h2>FOTOGRAFÍA</h2>
-        <p>La fotografía de la máscara de la muerte roja estará construida desde una evolución progresiva de la imagen. En el primer acto, el apartamento se presentará como un espacio doméstico común, el cual se cerrará en sí mismo, la cámara observa al escritor desde una distancia contenida, aun si exagerar en la crisis en la que se adentrará exponencialmente, crisis que se verá acompañada de un juego de planos y movimientos de cámara. La escena inicial, donde el personaje come frente al televisor mientras escucha las noticias sobre la pandemia, se trabaja con planos estables, encuadres limpios y una iluminación natural, ligeramente fría. La intención que se quiere manejar aqui es que el espectador entre en una situación posible: el personaje se encierra debido al pánico por la situación poco después de saber de una noticia alarmante y luego como su rutina se empieza a romper.</p>
-        <p>A medida que el mio del escritor aumenta, la imagen poco a poco va perdiendo equilibrio, Los planos que en un principio eran abiertos se transforman en planos medios, primeros planos y planos detalle. El cuerpo del protagonista empieza a fragmentarse visualmente: manos limpiando objetos, sus pies moviéndose mostrando ansiedad, rostro sudoroso, perilla siendo limpiada de forma insistente. Esta decisión se toma buscando que el cierre no se encienda solo por el espacio, sino también por la manera en que el personaje empieza a habitarlo desde la paranoia.</p>
-        <p>La iluminación partir de fuentes justificadas dentro del espacio: televisor, luces domésticas, luz de ventana, luz de pasillo, luces de habitaciones. En el apartamento, la luz será más baja y natural. El televisor iluminara parcialmente el rostro del escritor, reforzando la idea de que la amenaza entra primero por la información ahí se ve. En el hospital, la luz será dura, blanca y frontal, casi que encandile al personaje. En el pasillo, será más expresiva: cada habitación tendrá un dominante cromática relacionado con el fragmento emocional que alli aparecera.</p>
-
-        <h3>Referentes Visuales</h3>
-        <div class="split-layout">
-            <div class="image-placeholder">
-                <img src="imagenes pag/cuarto hospital.png" alt="Habitación Hospital">
-            </div>
-            <div class="image-placeholder">
-                <img src="imagenes pag/hospital.png" alt="Pasillo Hospital">
-            </div>
-        </div>
-    </div>
-
-    <!-- ================== KUATIA 8: REFERENTES CINE 1 ================== -->
-    <div class="page">
-        <h2>REFERENTES CINEMATOGRÁFICOS</h2>
-        <p>Contamos con 4 referentes, cada uno pensado teniendo en cuenta su estética, color, manejo de cámaras y sonido, ademas del tratamiento psicologico que buscamos desarrollar en nuestro cortometraje.</p>
-
-        <div class="movie-reference">
-            <div>
-                <p><strong>28 DAYS LATER (Exterminio, Danny Boyle, 2002):</strong> De este referente tenemos en cuenta los planos, en el inicio de esta película un repartidor sale del hospital poco después de estar en coma, al salir a las calles, se encuentra con una realidad cruda y vacía, haciendo uso de planos generales, planos medios, detalle, subjetivos, también cabe destacar el uso de la cámara en manos para darle un movimiento natural e inestable, acompañado del uso de plano holandes que genera inestabilidad y desorientación.</p>
-            </div>
-            <div class="image-placeholder">
-                <img src="imagenes pag/28 dias.png" alt="28 Days Later">
-            </div>
-        </div>
-    </div>
-
-    <!-- ================== KUATIA 9: REFERENTES CINE 2 ================== -->
-    <div class="page">
-        <div class="movie-reference">
-            <div>
-                <p><strong>Black Swan (cisne negro, Darren Aronofsk, 2010):</strong> En esta pelicula nosotros encontramos el tratamiento psicologico del cuerpo. La cámara deberá hacer acercamientos al rostro, a la respiración, a los movimientos torpes y a los momentos donde el personaje (escritor) deja de distinguir la delgada línea entre la realidad y su percepción alterada. Encontramos la forma de encarnar ese sentimiento de cautiverio y paranoia por medio del cuerpo del escritor.</p>
-            </div>
-            <div class="image-placeholder">
-                <img src="imagenes pag/cisne negro.png" alt="Black Swan">
-            </div>
-        </div>
-        
-        <div class="movie-reference">
-            <div>
-                <p><strong>Sleepy Hollow (La leyenda del jinete sin cabeza, Tim Burton, 1999):</strong> Nos ayuda, dándonos una guía de la atmósfera cromática general. No quiere decir que tomemos su fantasía gótica de manera literal, sino esa frialdad visual, tonos desaturados, sombras, niebla, grises, lograr que cada espacio tenga una sensación fúnebre. Tenemos en cuenta que esta paleta de colores hará que tonos como el rojo, en su momento tengan más fuerza en pantalla.</p>
-            </div>
-            <div class="image-placeholder">
-                <img src="imagenes pag/sleepy.png" alt="Sleepy Hollow">
-            </div>
-        </div>
-    </div>
-
-    <!-- ================== KUATIA 10: REFERENTES CINE 3 HA TEXTO ================== -->
-    <div class="page">
-        <div class="movie-reference">
-            <div>
-                <p><strong>Panic Room (La habitación del pánico, David Fincher, 2002):</strong> Esta nos ayuda ver los escenarios, especialmente el apartamento como un espacio de encierro. Nos interesa la manera en la que puertas, habitaciones, pasillos y límites físicos dejan de ser sólo elementos neutros y se convierten en parte de la tensión. En nuestro corto, la puerta principal, la ventana y el pasillo funcionan como fronteras: No buscan solo separar lugares, también separar el estado mental del protagonista.</p>
-            </div>
-            <div class="image-placeholder">
-                <img src="imagenes pag/panicroom.png" alt="Panic Room">
-            </div>
-        </div>
-
-        <p>La cámara usará diferentes tipos de planos según el avance psicológico del protagonista. En el inicio se trabajarán planos generales y planos medios para ubicar al escritor dentro del departamento. Estos planos permiten ver la relación entre el cuerpo y el espacio: mesa, televisor, ventana, puerta y objetos de limpieza. Luego se usarán primeros planos y planos detalle para mostrar la ansiedad: respiración, manos, objetos “contaminados”, gestos repetitivos y miradas. En el hospital se usarán planos subjetivos, desenfoques y encuadres incompletos, porque el personaje despierta con la vista borrosa y no comprende lo que ocurre. En el pasillo se usarán planos generales con profundidad, aprovechando la perspectiva para hacerlo sentir largo, frío y difícil de atravesar.</p>
-    </div>
-
-    <!-- ================== KUATIA 11: EQUIPO HA SONIDO ================== -->
-    <div class="page">
-        <h2>EQUIPO REQUERIDO</h2>
-        
-        <div class="split-layout">
-            <div>
-                <p><strong>Canon T5I:</strong></p>
-                <ul>
-                    <li>Lente de kit 18 - 55 mm</li>
-                    <li>Permite trabajar diferentes extremos, 18mm ampliación del espacio, 35 mm o 55 mm planos cerrados del rostro, manos y objetos.</li>
-                </ul>
-                <p><strong>Nikon B700:</strong></p>
-                <ul>
-                    <li>Apoyo para planos detalle, planos comprimidos del pasillo, tomas de zoom, tomas donde se necesite aislar al personaje del fondo.</li>
-                </ul>
-                <p><strong>Trípodes: Contamos con 2</strong></p>
-                <ul><li>Trípode 1 m, Trípode 1,50 m</li></ul>
-                <p><strong>Iluminación:</strong></p>
-                <ul>
-                    <li>Lámpara led</li>
-                    <li>Luces domésticas</li>
-                    <li>Extensiones eléctricas</li>
-                    <li>Celular como apoyo para pruebas de encuadre</li>
-                    <li>Elementos para controlar la luz: Cartulinas negras, telas blancas, papel mantequilla o difusores caseros.</li>
-                </ul>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 20px;">
-                <div class="image-placeholder" style="min-height: 150px; margin: 0;">
-                    <img src="imagenes pag/canont5i.png" alt="Canon T5i">
-                </div>
-                <div class="image-placeholder" style="min-height: 150px; margin: 0;">
-                    <img src="imagenes pag/nikon.png" alt="Nikon B700">
-                </div>
-            </div>
-        </div>
-
-        <h2>SONIDO</h2>
-        <p>El sonido es uno de los elementos principales para construir esa tensión psicológica que va a tener nuestro cortometraje. La propuesta no va a estar completamente dependiente de música constante, sino de una acumulación de ambientes, objetos en movimiento, respiraciones, pulsaciones, y el pitido de un monitor de signos vitales. El objetivo es que el espectador no solo vea el encierro, sino que lo escuche de manera progresiva. El apartamento, y los diversos espacios que aparecerán deberán tener identidades sonoras distintas, pero conectados por un mismo elemento, el deterioro físico y mental del escritor.</p>
-        <p>La importancia del sonido está en que permite expresar aquello que el personaje no verbaliza directamente. El miedo, la paranoia y la pérdida de control se trabajarán a través de la acumulación de ruidos mínimos, la repetición de ciertos sonidos y la alteración progresiva de voces. El pitido funciona como motivo sonoro principal: inicia como una señal y luego se conecta al monitor, convirtiéndose en una marca de deterioro físico y psicológico del escritor. Este recurso permitirá unir los distintos espacios de la narración, sin que haya necesidad de explicarlos visualmente todo el tiempo.</p>
-    </div>
-
-    <!-- ================== KUATIA 12: SONIDO CONT. ================== -->
-    <div class="page">
-        <p>La música se utilizará de forma mínima. No se busca una banda sonora constante, sino una presencia puntual que refuerce momentos de transición, tensión o quiebre. En varias escenas será más importante dejar respirar el silencio, la respiración del personaje, o el sonido ambiente. La tensión tiene que surgir de esa cercanía de los sonidos cotidianos, por eso mismo se le dará importancia y prioridad a los sonidos internos del espacio y del cuerpo.</p>
-        <p>Como referente sonoro se tomará Mother! (¡Madre! Darren Aronofsky, 2017), por la manera en que el espacio doméstico se vuelve opresivo a través del sonido. Nos interesa como usan la acumulacion progresiva de voces, y demás sonidos variados, hasta convertir una casa común en un lugar incómodo y saturado. Esta lógica buscamos aplicarla adaptándola al apartamento, al hospital y a los espacios mentales, buscando que el sonido haga sentir que el personaje pierde control sobre el lugar que habita.</p>
-
-        <h3>Técnica de Grabación</h3>
-        <p>Durante el rodaje se utiliza un micrófono de solapa para capturar diálogos, respiraciones y sonidos cercanos al cuerpo de los personajes. El celular funcionará como grabadora de apoyo para registrar ambientes y sonidos específicos del espacio. Se grabaran foleys (efecto sala) propios para reforzar acciones importantes: apertura y cierre de puertas, pasos, manipulación de bolsas, limpieza con alcohol, roce de guantes, movimiento de cosas, golpes, cortinas, respiraciones.</p>
-        <p>En postproducción se trabajará la limpieza del audio, la superposición de voces, la variación de volumen y la construcción del ambiente. Se busca diferenciar los sonidos realistas de los sonidos subjetivos, sin romper por completo la unidad del cortometraje, siendo el objetivo lograr que el espectador perciba lo que siente el escritor al mismo tiempo que lo está viendo o incluso antes de que la imagen lo haga evidente.</p>
-        
-        <h3>Equipo requerido (Sonido/Post)</h3>
-        <ul>
-            <li>Micrófono de solapa</li>
-            <li>Celular como grabadora secundaria</li>
-            <li>Audífonos para monitoreo</li>
-            <li>Biblioteca propia de foleys</li>
-            <li>Software de edición: Davinci Resolve, Cap Cut, Audacity</li>
-        </ul>
-    </div>
-
-    <!-- ================== KUATIA 13: MONTAJE ================== -->
-    <div class="page">
-        <h2>MONTAJE</h2>
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Lugar</th>
-                        <th>Justificación</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Zona A</strong></td>
-                        <td>Entrada del personaje principal.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Zona B</strong></td>
-                        <td>Pasillo en el cual el personaje del escritor se moviliza mayoritariamente.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Zona C</strong></td>
-                        <td>Habitación en la que se desarrollaran las crisis del escritor.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="split-layout-3">
-            <div class="image-placeholder" style="margin:0; min-height:150px;">
-                <img src="imagenes pag/zona a.jpeg" alt="Zona A">
-            </div>
-            <div class="image-placeholder" style="margin:0; min-height:150px;">
-                <img src="imagenes pag/zona b.jpeg" alt="Zona B">
-            </div>
-            <div class="image-placeholder" style="margin:0; min-height:150px;">
-                <img src="imagenes pag/zona c.jpeg" alt="Zona C">
-            </div>
-        </div>
-
-        <h2>6. PROPUESTA DE CIRCULACIÓN</h2>
-        
-        <h3>6.1. Estrategia de exhibición</h3>
-        <p>El cortometraje “La máscara de la muerte roja” está concebido para un público joven y adulto interesado en el suspenso, el drama de encierro y las narrativas de salud mental. Su formato breve y su estética de realismo contaminado lo hacen apto tanto para espacios de cine independiente como para plataformas digitales, por ello se plantea un circuito de exhibición escalonado.</p>
-        
-        <h3>6.1.1 Circuito presencial</h3>
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Espacio</th>
-                        <th>Justificación</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Muestra interna en la facultad de artes plásticas y visuales</strong></td>
-                        <td>El primer objetivo es validar el proyecto antes pares y docentes. Se gestionará una sala con televisor, con invitación abierta a estudiantes de la universidad UPTC.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Festivales de cortometraje</strong></td>
-                        <td>Se seleccionarán convocatorias con categoría estudiantil o baja producción.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Centros culturales de barrio y biblioteca públicas</strong></td>
-                        <td>Muchos de estos espacios cuentan con ciclos de cine independiente y están abiertos a recibir propuestas de realizadores locales.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- ================== KUATIA 14: CIRCULACIÓN DIGITAL ================== -->
-    <div class="page">
-        <h3>6.1.2 Circuito digital</h3>
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Plataforma</th>
-                        <th>Uso estratégico</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Youtube</strong></td>
-                        <td>El corto se subirá a un canal de youtube con una descripción detallada y miniatura personaliza atrayendo la tención del público.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Instagram o TikTok</strong></td>
-                        <td>Acá se podrán agregar detrás de cámara y material gráfico.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <p>La difusión será realizada íntegramente por el equipo de seis integrantes, creando perfiles unificados con nombre del grupo en perfiles de Instagram, Tiktok y Youtube en donde se verán trailer y cortos de la misma película y la publicación completa de la misma.</p>
-
-        <h2>6.2 Público objetivo</h2>
-        <p><strong>Primario:</strong> Estudiantes y egresados de carreras artísticas, cine y psicológicas. Edad 18-30 años con interés en narrativas de encierro, suspenso y producciones independientes.</p>
-        <p><strong>Secundario:</strong> Docentes y personal de salud interesado en representaciones de pandemia y la salud mental.</p>
-    </div>
-
-    <!-- ================== KUATIA 15 HA UPE RIRE: GUION ================== -->
-    <!-- El guion se envuelve en su propia página que se expandirá y creará saltos internos automáticamente -->
-    <div class="page" style="height: auto;">
-        <h2>GUIÓN</h2>
-        
-        <div class="script-text">Personajes: 
+        <!-- GUION -->
+        <h2 id="guion">GUIÓN</h2>
+        <div class="script-container">
+            <div class="script-text">Personajes: 
 Escritor (Simón)= Rojo sangre
 Enfermero(a) 1=  Azul tristeza 
 Enfermero(a) 2=  Blanco miedo
@@ -565,23 +265,23 @@ Doctor(a) (Annie)= Verde irá
 
 
 
-LA MÁSCARA DE LA MUERTE ROJA
+<strong>LA MÁSCARA DE LA MUERTE ROJA</strong>
 POR LOS TARANTINOS
 
-PRIMER ACTO- EL ENCIERRO
+<strong>PRIMER ACTO- EL ENCIERRO</strong>
 
- INTERIOR APARTAMENTO DEL ESCRITOR:  TARDE/ TARDE NOCHE
+<strong> INTERIOR APARTAMENTO DEL ESCRITOR:  TARDE/ TARDE NOCHE</strong>
 
 El escritor (30s) se encuentra en su apartamento, está sentado en la mesa del comedor, Tiene un plato de comida frente a él. Mastica de forma natural, mientras observa el televisor que se encuentra encendido.
-CORTE
+<strong>CORTE</strong>
 
 Se enfoca la pantalla. En la pantalla se ve un noticiero anunciando información sobre una pandemia que ha llegado a su país. 
 El volumen de la televisión aumenta progresivamente. El escritor come más lento a medida que escucha.
 
-VOZ EN TV (OFF)
+<strong>VOZ EN TV (OFF)</strong>
 -Número de contagios en aumento…-
 El escritor deja de comer, mira fijamente la pantalla unos segundos más. Se levanta de la silla mientras la televisión aún está sonando y camina lentamente hacia la ventana, corre la cortina con su mano un poco y observa la calle vacía. Cierra la cortina de golpe.
-CORTE
+<strong>CORTE</strong>
 
 Regresa a la mesa, se quita las gafas y las deja sobre la superficie junto a él.
 Se pasa las manos por el rostro.
@@ -589,57 +289,57 @@ Suspira.
 Apaga el televisor.
 Silencio.
 Toma sus llaves y sale del apartamento. La puerta se cierra detrás de él.
-CORTE.
+<strong>CORTE.</strong>
 
-SUENA MÚSICA INQUIETANTE (OFF)
+<strong>SUENA MÚSICA INQUIETANTE (OFF)</strong>
 
 La puerta se abre nuevamente. El escritor entra con resmas de papel en las manos.
 Las deja con rapidez sobre el escritorio, se sienta y mueve el pie de forma repetitiva mientras ve un punto fijo. Se levanta de golpe y sale nuevamente del apartamento. La puerta se cierra.
-CORTE.
+<strong>CORTE.</strong>
 
 SILENCIO. Se ve la puerta unos segundos cerrada
 
-SUENA MÚSICA INQUIETANTE (OFF)
+<strong>SUENA MÚSICA INQUIETANTE (OFF)</strong>
 
 La puerta se abre nuevamente, el escritor ahora entra con bolsas de supermercado y en sus manos viste guantes de nitrilo. Deja las bolsas junto a la entrada.
 Respira agitado, mira sus manos y sale otra vez.
-CORTE.
+<strong>CORTE.</strong>
 
 SILENCIO. Se ve la puerta unos segundos cerrada.
 
-SUENA MÚSICA INQUIETANTE (OFF)
+<strong>SUENA MÚSICA INQUIETANTE (OFF)</strong>
 
 La puerta se abre. El escritor está vez entra con alcohol, tapabocas, guantes y careta transparente. Se quita los zapatos en la entrada, toma las bolsas y se dirige a la mesa.
 Empieza a limpiar los empaques de forma repetitiva y acelerada. Limpia el mismo objeto varias veces y coloca todo rápidamente en su lugar.
 Rocía alcohol sobre la mesa, limpia con movimientos bruscos.
 Rocía alcohol sobre sus manos, las frota frenético entre sí, luego rocía alcohol sobre su ropa.
 Se detiene un segundo. Respira agitado.
-CORTE
+<strong>CORTE</strong>
 
 Toma un trapo y el alcohol, se dirige a la puerta principal. Limpia la perilla de forma insistente mientras su respiración se acelera, su visión se torna borrosa.
 Se apoya levemente en la puerta. Sigue limpiando, todo comienza a oscurecerse progresivamente. 
 El escritor se detiene, escucha un leve sonido.
 PIP.
 Silencio. Todo se torna NEGRO.
-CORTE
+<strong>CORTE</strong>
 
 
-SEGUNDO ACTO- EL HOSPITAL: INTERIOR
+<strong>SEGUNDO ACTO- EL HOSPITAL: INTERIOR</strong>
 
-SUENAN PITIDOS DE UN ELECTROCARDIOGRAMA(OFF) 
+<strong>SUENAN PITIDOS DE UN ELECTROCARDIOGRAMA(OFF)</strong> 
 
-ENFERMERA 1
+<strong>ENFERMERA 1</strong>
 (Revisando la canalización de su brazo) 
 Está muy débil, su pulso es irregular.
 
-Doctor
+<strong>Doctor</strong>
 (del lado opuesto de la camilla)
 Vamos a monitorearlo cada cinco minutos, cualquier alteración en el ritmo avisame.
 
 De manera progresiva el escritor abre los ojos lentamente, su vista es borrosa y difusa. La luz blanca lo encandila por un momento, parpadea y ve la imagen borrosa de dos enfermeras.
 
 
-ENFERMERA 1
+<strong>ENFERMERA 1</strong>
 (asiente y observa lentamente la expresión del escritor)
 No te preocupes, quédate aquí por favor…
 
@@ -647,22 +347,22 @@ El escritor parpadea progresivamente mientras su respiración es entrecortada.
 
 
 El escritor no logra enfocar la vista completamente, escucha las voces distorsionadas poco a poco como murmullos y vuelve cerrar sus ojos. Negro.
-CORTE
+<strong>CORTE</strong>
 
 El escritor abre los ojos lentamente, realiza gestos de confusión. Se encuentra parado en un pasillo el cual tiene muchas habitaciones, observa a su alrededor, detrás y frente a él.
 
 Observa una luz verde proveniente de la primera habitación. Camina hacia ella lentamente
-CORTE
+<strong>CORTE</strong>
 
 El escritor se encuentra dentro de la habitación, camina un poco y se detiene en seco al ver a un personaje vestido de verde que lo observa fijamente, con dureza.
 El personaje se levanta, camina hacia él lentamente, mientras lo ve con superioridad y desdén.
 El escritor aprieta los puños, cierra los ojos y las palabras de las enfermeras resuenan en su mente (voz en OFF). Intenta moverse pero la ira lo paraliza. 
 
-ESCRITOR
+<strong>ESCRITOR</strong>
 (susurrando)
 Bajo observación
 
-DAMA DE VERDE (doctora annie)
+<strong>DAMA DE VERDE (doctora annie)</strong>
 (Grita)
 
 -¿Ahora quién es?-
@@ -689,21 +389,21 @@ Silencio. Patea algo y vuelve a ver al piso.
 
 El escritor golpea la pared con fuerza y grita. La imagen se distorsiona. La dama de verde lo empuja provocando que caiga al suelo. El escritor se golpea en la cabeza y despierta de golpe en el hospital. Escucha muy a lo lejos:
 
-DOCTOR (Andres)
+<strong>DOCTOR (Andres)</strong>
 (Fuerte y claro)
 ¡Despejen!
 
-PITIDO DE MÁQUINA CARDIACA CONTINUO (voz en OFF)
+<strong>PITIDO DE MÁQUINA CARDIACA CONTINUO (voz en OFF)</strong>
 
 Abre un poco sus ojos pero vuelve a total oscuridad de inmediato.
 Reaparece en el pasillo pero ahora de otro cuarto logra ver una luz naranja emanando del interior de este. Nuevamente se acerca pero esta vez espera en el umbral de la puerta. El escritor abre la puerta a la habitación.
 Divisa una silueta esta vez con vestimenta con toques anaranjados.
 
-ESCRITOR
+<strong>ESCRITOR</strong>
 (susurra)
  Su pulso es irregular.
 
-SILUETA ANARANJADA
+<strong>SILUETA ANARANJADA</strong>
 (Hablando muy rápido y ansiosamente- Respiración entrecortada)
 -Por favor… por favor…-
 
@@ -731,29 +431,29 @@ El escritor estira los brazos pidiendo ayuda y se agarra la parte frontal del cu
 
 Regresa otra vez a la habitación del hospital. Al despertar abre sus ojos poco a poco, respirando con dificultad, cuando logra enfocar la vista ve como el enfermera 2 sostiene en sus manos los desfibriladores sobre su pecho.
 
-SE ESCUCHA EL PITIDO ACELERADO DEL MONITOR CARDIACO (voz en OFF)
+<strong>SE ESCUCHA EL PITIDO ACELERADO DEL MONITOR CARDIACO (voz en OFF)</strong>
 
-ESCRITOR
+<strong>ESCRITOR</strong>
 (susurra entrecortado)
 ¿Don.. Dónde estoy?
 
 Los enfermeros intercambian miradas. Una doctora se acerca con gesto tranquilo. La velocidad del monitor baja poco a poco.
 
-ENFERMERA 2
+<strong>ENFERMERA 2</strong>
 (calmadamente)
 Respira conmigo… eso es.. despacio.
 
-ENFERMERA 3
+<strong>ENFERMERA 3</strong>
 
 Doc, está muy frío.
 
-DOCTORA (Annie)
+<strong>DOCTORA (Annie)</strong>
 (amablemente)
 Usted se encuentra en el hospital, sugiero dejarlo bajo observación.
 
 El escritor cae en un sueño profundo, esta vez no ve el pasillo. Aparece directamente en la habitación. Iluminada con una luz tenue de color violeta. 
 
-CABALLERO VIOLETA
+<strong>CABALLERO VIOLETA</strong>
 (voz reflexiva y melancólica)
 
 -Y pensar que yo viví tan lejos pero viajé tan poquito-
@@ -780,7 +480,7 @@ Se percata que esta nueva habitación es simplemente blanca, tal y como la habit
 El escritor ve a una mujer tímida en un rincón de la habitación. Porta un tapabocas y guantes de nitrilo. Evita cualquier acercamiento innecesario por temor.
 
 
-DAMA DE BLANCO
+<strong>DAMA DE BLANCO</strong>
 (Desconfiada, voz alta)
 
 -Pero, ¿por qué me movería?, si salgo me voy a morir y si no salgo me voy a volver loca encerrada-
@@ -808,19 +508,19 @@ La cámara se aleja de la persona que empieza a mecerse sobre sí mientras grita
 
 -Quiero que te vayas, quiero que te vayas, por favor-
 
-ESCRITOR
+<strong>ESCRITOR</strong>
 (asustado susurra)
 Respira conmigo… eso es.. despacio.
 
 El escritor camina lentamente de espaldas y sale rápidamente de la habitación. Nota que se encuentra casi al final del pasillo, junto a una habitación de color azul y a su parecer la ultima. El escritor abre la puerta a la habitación, solo para ser recibido por silencio.
 
-ESCRITOR
+<strong>ESCRITOR</strong>
 (susurra)
 Está muy frío.
 
 En el piso una figura acurrucada sin movimiento alguno habla en un tono sombrío.
 
-SILUETA AZUL
+<strong>SILUETA AZUL</strong>
 (seria)
 -Ya sin lágrimas, acabada, ¿para que me muevo de acá?¿ah?-
 -Tengo frio, pero es que eso se siente mejor que estar sola en la cama viendo a ver si me ahogo-
@@ -852,24 +552,352 @@ Hora de defunción 20:20 pm (voz en off lejana) seguida de un pip continuo y pro
 Acto final, enfoque a la pantalla del televisor con el noticiero.
 
 -en este momento se reporta la muerte de un reconocido escritor de tan solo 30 años de edad, otra de las vidas tomadas por esta contingencia, número de contagios en aumento…</div>
-    </div>
+        </div>
 
-    <!-- ================== KUATIA PAHA: MOODBOARD ================== -->
-    <div class="page">
-        <h2>7. MOODBOARD</h2>
+        <!-- TRATAMIENTO AUDIOVISUAL -->
+        <h2 id="tratamiento">TRATAMIENTO AUDIOVISUAL</h2>
+        <h3>PROPUESTA DE DIRECCIÓN</h3>
+        <p>La dirección apuesta por un realismo contenido que se va quebrando. En los primeros minutos, todo luce plausible: un hombre, una pantalla encendida, noticias del colapso sanitario. La cámara es observacional, busca mostrar al protagonista como alguien que existe dentro de un mundo ahora reducido a cuatro paredes. Sin embargo, a medida que otras presencias comienzan a aparecer en ese mismo espacio sin explicación, sin ser motivo de alarma y sin que nadie las haya invitado, el espacio empieza a volverse disperso y fragmentado. Múltiples presencias que buscan relacionarse entre sí y con él, pero que a la vez viven completamente separadas. La lógica se erosiona lentamente, como la conciencia de alguien que se apaga. Con esto se busca plasmar el viaje psicológico en el que el protagonista se ve inmerso: uno en el que la realidad y la fantasía se vuelven progresivamente difusas e indistinguibles.</p>
+        <p>El protagonista no tiene nombre. Su contexto no importa. Es un cuerpo encerrado, y eso es suficiente, las presencias que habitan junto a él no son fantasmas ni alucinaciones convencionales. Son estados psíquicos encarnados: partes de él mismo tan ajenas que se han vuelto físicamente visibles. Cinco fragmentos que representan las respuestas más viscerales e íntimas al encierro. La ira de quien siente que su lugar en el mundo se ha vuelto irrelevante. La desesperación de quien ve que no hay nada que hacer para cambiar lo que ocurre afuera. La tristeza y la melancolía de quien piensa en la vida que tenía y que ya no puede tocar. El miedo que opera en dos direcciones simultáneas: el terror al encierro perpetuo y el terror igualmente paralizante de salir. Y por último la negación, el fragmento que se desentiende de todo, que no se mueve, que actúa como si nada de esto estuviera pasando.</p>
+        <p>La dirección de actores buscará que cada presencia tenga una fisicalidad completamente distinta, donde no solo la actuación marque la diferencia sino que la cámara, el color y todos los elementos visuales permitan leer cada fragmento como una entidad única. Iguales en origen, irreconocibles entre sí. Se busca una reflexión profunda e íntima de cada uno de estos fragmentos en sus espacios individuales y en sus interacciones con el protagonista se busca una charla con sigo mismo de una manera subjetiva.</p>
+        <p>El escenario es uno solo y está pensado para funcionar simultáneamente como espacio físico y como espacio etéreo. Un lugar opresivo donde la sensación de encierro se hace marcada y constante, y donde al mismo tiempo se ve reflejada la psique más íntima del protagonista. El departamento no es solo donde ocurre la historia: es la historia misma.</p>
+        <p>La estructura narrativa es deliberadamente no lineal. No hay un inicio, un nudo y un desenlace. Lo que hay es una exploración, un estudio de personaje representado físicamente, donde el tiempo avanza pero no necesariamente hacia ningún lugar, en donde ciertos eventos pueden estar pasando antes o después de otros.</p>
+
+        <!-- DIRECCIÓN DE ARTE -->
+        <h2 id="arte">DIRECCIÓN DE ARTE</h2>
+        <h3>LOS ESCENARIOS</h3>
+        <p>El espacio central de la historia es un apartamento doméstico intervenido para funcionar como un lugar que se consume a sí mismo. La decisión de limitar las locaciones a un número reducido de áreas dentro de este espacio no es una restricción de producción sino una decisión narrativa: entre más pequeño y delimitado sea el mundo visible, más opresiva se vuelve la presencia de todo lo que sucede dentro.</p>
+        <p>El apartamento comienza ordenado, habitado, reconocible. A medida que las interacciones entre el protagonista y los fragmentos se suceden, el espacio se degrada de manera progresiva y visible. La basura se acumula, los objetos pierden su lugar, las superficies se llenan. Este deterioro no responde a ninguna acción concreta dentro de la historia: simplemente ocurre, como si el espacio estuviera respondiendo al estado interior del protagonista. Al final del corto, el apartamento es irreconocible respecto a lo que era al inicio.</p>
+        <p>El pasillo largo del edificio funciona como espacio de transición entre estados. Es un lugar que atraviesa los lugares donde ocurren las interacciones y las reflexiones. Sus proporciones que son largas, estrechas, con una perspectiva que hace sentir al personaje principal como si lo tuviese que recorrer eternamente, refuerzan la sensación de encierro incluso cuando el personaje está en movimiento. Es el único espacio exterior al apartamento y paradójicamente es igual de claustrofóbico.</p>
+
+        <h3>LOS PERSONAJES</h3>
+        <p>Cada fragmento está definido por un color que lo satura completamente: vestuario, elementos de utilería asociados, y tratamiento de luz en sus escenas. Los cinco colores son azul, violeta, verde, naranja y blanco. La asignación de color no responde a una jerarquía ni a una teoría cromática específica: el color es tan abrumador e inmediato que funciona como identificador puro, una señal clara de que cada uno de estos epsacios es distinto y está alejado de los demás. El espectador aprende a leer cada presencia antes de que hable o se mueva.</p>
+        <p>El protagonista no tiene un color asignado. Su paleta es neutra, deslavada, sin pertenencia cromática. Visualmente es el único personaje que no pertenece a ningún estado definido, lo cual lo convierte paradójicamente en el más perdido de todos los que habitan el espacio.</p>
+        <p>La saturación del color de los fragmentos contrasta deliberadamente con el tono general del apartamento, que se mantiene en grises, beiges deteriorados y blancos sucios. Cuando un fragmento entra en escena, su color irrumpe en ese ambiente como algo que no debería estar ahí.</p>
+        <p>La bata roja del doctor es el único elemento cromático que no pertenece al sistema de los cinco fragmentos. Es un rojo diferente al de cualquier otro elemento visual del corto: más oscuro, más definitivo. Aparece una sola vez y no necesita repetirse.</p>
+
+        <!-- TONO Y PALETA -->
+        <h3 id="color">Tono y paleta de colores</h3>
+        <p>La paleta general estará inspirada en espacios clínicos y psiquiátricos. No se buscará un blanco puro, sino que quiere lograr una atmósfera fría, gastada y emocionalmente incómoda.</p>
         
-        <div class="image-placeholder" style="min-height: 450px; margin-bottom: 20px;">
-            <img src="imagenes pag/moodboard 1.png" alt="Moodboard 1">
+        <div class="split-layout">
+            <div>
+                <p><strong>Los colores principales serán:</strong></p>
+                <ul>
+                    <li>HOSPITAL</li>
+                    <li>APARTAMENTO</li>
+                    <li>PASILLO</li>
+                </ul>
+                <p>Estos tonos deberán aparecer tanto en el apartamento como en el hospital y el pasillo mental, para que los tres espacios parezcan conectados por la misma crisis interior.</p>
+            </div>
+            <div class="image-wrapper">
+                <div class="image-container">
+                    <img src="imagenes pag/paleta hospital aoartamento.png" alt="Paleta ubicaciones">
+                </div>
+                <button class="btn-ampliar" onclick="openModal('imagenes pag/paleta hospital aoartamento.png')">[ 🔍 Ampliar Imagen ]</button>
+            </div>
         </div>
 
-        <div class="image-placeholder" style="min-height: 450px;">
-            <img src="imagenes pag/moodboard 2.png" alt="Moodboard 2">
+        <p><strong>ACENTOS NARRATIVOS COLOR DE HABITACIONES MENTALES</strong></p>
+        <div class="image-wrapper">
+            <div class="image-container">
+                <img src="imagenes pag/paleta habitaciones.png" alt="Paleta habitaciones">
+            </div>
+            <button class="btn-ampliar" onclick="openModal('imagenes pag/paleta habitaciones.png')">[ 🔍 Ampliar Imagen ]</button>
+        </div>
+        <ul>
+            <li>VERDE - IRA</li>
+            <li>NARANJA - ANSIEDAD</li>
+            <li>VIOLETA - MELANCOLÍA</li>
+            <li>AZUL - TRISTEZA</li>
+            <li>BLANCO - MIEDO</li>
+            <li>ROJO - DOCTOR EN REPRESENTACIÓN DE LA MUERTE</li>
+        </ul>
+
+        <!-- FOTOGRAFÍA -->
+        <h2 id="fotografia">FOTOGRAFÍA</h2>
+        <p>La fotografía de la máscara de la muerte roja estará construida desde una evolución progresiva de la imagen. En el primer acto, el apartamento se presentará como un espacio doméstico común, el cual se cerrará en sí mismo, la cámara observa al escritor desde una distancia contenida, aun si exagerar en la crisis en la que se adentrará exponencialmente, crisis que se verá acompañada de un juego de planos y movimientos de cámara. La escena inicial, donde el personaje come frente al televisor mientras escucha las noticias sobre la pandemia, se trabaja con planos estables, encuadres limpios y una iluminación natural, ligeramente fría. La intención que se quiere manejar aqui es que el espectador entre en una situación posible: el personaje se encierra debido al pánico por la situación poco después de saber de una noticia alarmante y luego como su rutina se empieza a romper.</p>
+        <p>A medida que el mio del escritor aumenta, la imagen poco a poco va perdiendo equilibrio, Los planos que en un principio eran abiertos se transforman en planos medios, primeros planos y planos detalle. El cuerpo del protagonista empieza a fragmentarse visualmente: manos limpiando objetos, sus pies moviéndose mostrando ansiedad, rostro sudoroso, perilla siendo limpiada de forma insistente. Esta decisión se toma buscando que el cierre no se encienda solo por el espacio, sino también por la manera en que el personaje empieza a habitarlo desde la paranoia.</p>
+        <p>La iluminación partir de fuentes justificadas dentro del espacio: televisor, luces domésticas, luz de ventana, luz de pasillo, luces de habitaciones. En el apartamento, la luz será más baja y natural. El televisor iluminara parcialmente el rostro del escritor, reforzando la idea de que la amenaza entra primero por la información ahí se ve. En el hospital, la luz será dura, blanca y frontal, casi que encandile al personaje. En el pasillo, será más expresiva: cada habitación tendrá un dominante cromática relacionado con el fragmento emocional que alli aparecera.</p>
+
+        <h3>Referentes Visuales</h3>
+        <div class="split-layout">
+            <div class="image-wrapper">
+                <p style="text-align: center; font-size: 10px;">FOTOGRAFÍA DE UNA HABITACIÓN DE UN HOSPITAL</p>
+                <div class="image-container">
+                    <img src="imagenes pag/cuarto hospital.png" alt="Habitación Hospital">
+                </div>
+                <button class="btn-ampliar" onclick="openModal('imagenes pag/cuarto hospital.png')">[ 🔍 Ampliar Imagen ]</button>
+            </div>
+            <div class="image-wrapper">
+                <p style="text-align: center; font-size: 10px;">FOTOGRAFÍA DE UN PASILLO LARGO DE HOSPITAL</p>
+                <div class="image-container">
+                    <img src="imagenes pag/hospital.png" alt="Pasillo Hospital">
+                </div>
+                <button class="btn-ampliar" onclick="openModal('imagenes pag/hospital.png')">[ 🔍 Ampliar Imagen ]</button>
+            </div>
         </div>
 
-        <div style="text-align: center; margin-top: 50px;">
+        <!-- REFERENTES CINEMATOGRÁFICOS -->
+        <h2 id="referentes">REFERENTES CINEMATOGRÁFICOS</h2>
+        <p>Contamos con 4 referentes, cada uno pensado teniendo en cuenta su estética, color, manejo de cámaras y sonido, ademas del tratamiento psicologico que buscamos desarrollar en nuestro cortometraje.</p>
+
+        <div class="movie-reference">
+            <p><strong>28 DAYS LATER (Exterminio, Danny Boyle, 2002):</strong> De este referente tenemos en cuenta los planos, en el inicio de esta película un repartidor sale del hospital poco después de estar en coma, al salir a las calles, se encuentra con una realidad cruda y vacía, haciendo uso de planos generales, planos medios, detalle, subjetivos, también cabe destacar el uso de la cámara en manos para darle un movimiento natural e inestable, acompañado del uso de plano holandes que genera inestabilidad y desorientación.</p>
+            <div class="image-wrapper">
+                <div class="image-container">
+                    <img src="imagenes pag/28 dias.png" alt="28 Days Later">
+                </div>
+                <button class="btn-ampliar" onclick="openModal('imagenes pag/28 dias.png')">[ 🔍 Ampliar Imagen ]</button>
+            </div>
+        </div>
+
+        <div class="movie-reference">
+            <p><strong>Black Swan (cisne negro, Darren Aronofsk, 2010):</strong> En esta pelicula nosotros encontramos el tratamiento psicologico del cuerpo. La cámara deberá hacer acercamientos al rostro, a la respiración, a los movimientos torpes y a los momentos donde el personaje (escritor) deja de distinguir la delgada línea entre la realidad y su percepción alterada. Encontramos la forma de encarnar ese sentimiento de cautiverio y paranoia por medio del cuerpo del escritor.</p>
+            <div class="image-wrapper">
+                <div class="image-container">
+                    <img src="imagenes pag/cisne negro.png" alt="Black Swan">
+                </div>
+                <button class="btn-ampliar" onclick="openModal('imagenes pag/cisne negro.png')">[ 🔍 Ampliar Imagen ]</button>
+            </div>
+        </div>
+        
+        <div class="movie-reference">
+            <p><strong>Sleepy Hollow (La leyenda del jinete sin cabeza, Tim Burton, 1999):</strong> Nos ayuda, dándonos una guía de la atmósfera cromática general. No quiere decir que tomemos su fantasía gótica de manera literal, sino esa frialdad visual, tonos desaturados, sombras, niebla, grises, lograr que cada espacio tenga una sensación fúnebre. Tenemos en cuenta que esta paleta de colores hará que tonos como el rojo, en su momento tengan más fuerza en pantalla.</p>
+            <div class="image-wrapper">
+                <div class="image-container">
+                    <img src="imagenes pag/sleepy.png" alt="Sleepy Hollow">
+                </div>
+                <button class="btn-ampliar" onclick="openModal('imagenes pag/sleepy.png')">[ 🔍 Ampliar Imagen ]</button>
+            </div>
+        </div>
+
+        <div class="movie-reference">
+            <p><strong>Panic Room (La habitación del pánico, David Fincher, 2002):</strong> Esta nos ayuda ver los escenarios, especialmente el apartamento como un espacio de encierro. Nos interesa la manera en la que puertas, habitaciones, pasillos y límites físicos dejan de ser sólo elementos neutros y se convierten en parte de la tensión. En nuestro corto, la puerta principal, la ventana y el pasillo funcionan como fronteras: No buscan solo separar lugares, también separar el estado mental del protagonista.</p>
+            <div class="image-wrapper">
+                <div class="image-container">
+                    <img src="imagenes pag/panicroom.png" alt="Panic Room">
+                </div>
+                <button class="btn-ampliar" onclick="openModal('imagenes pag/panicroom.png')">[ 🔍 Ampliar Imagen ]</button>
+            </div>
+        </div>
+
+        <p>La cámara usará diferentes tipos de planos según el avance psicológico del protagonista. En el inicio se trabajarán planos generales y planos medios para ubicar al escritor dentro del departamento. Estos planos permiten ver la relación entre el cuerpo y el espacio: mesa, televisor, ventana, puerta y objetos de limpieza. Luego se usarán primeros planos y planos detalle para mostrar la ansiedad: respiración, manos, objetos “contaminados”, gestos repetitivos y miradas. En el hospital se usarán planos subjetivos, desenfoques y encuadres incompletos, porque el personaje despierta con la vista borrosa y no comprende lo que ocurre. En el pasillo se usarán planos generales con profundidad, aprovechando la perspectiva para hacerlo sentir largo, frío y difícil de atravesar.</p>
+
+        <!-- EQUIPO REQUERIDO -->
+        <h2 id="equipo">Equipo Requerido</h2>
+        
+        <div class="split-layout">
+            <div>
+                <p><strong>Canon T5I:</strong></p>
+                <ul>
+                    <li>Lente de kit 18 - 55 mm</li>
+                    <li>Permite trabajar diferentes extremos, 18mm ampliación del espacio, 35 mm o 55 mm planos cerrados del rostro, manos y objetos.</li>
+                </ul>
+                <div class="image-wrapper">
+                    <div class="image-container">
+                        <img src="imagenes pag/canont5i.png" alt="Canon T5i">
+                    </div>
+                    <button class="btn-ampliar" onclick="openModal('imagenes pag/canont5i.png')">[ 🔍 Ampliar Imagen ]</button>
+                </div>
+            </div>
+            <div>
+                <p><strong>Nikon B700:</strong></p>
+                <ul>
+                    <li>Apoyo para planos detalle, planos comprimidos del pasillo, tomas de zoom, tomas donde se necesite aislar al personaje del fondo.</li>
+                </ul>
+                <div class="image-wrapper">
+                    <div class="image-container">
+                        <img src="imagenes pag/nikon.png" alt="Nikon B700">
+                    </div>
+                    <button class="btn-ampliar" onclick="openModal('imagenes pag/nikon.png')">[ 🔍 Ampliar Imagen ]</button>
+                </div>
+            </div>
+        </div>
+
+        <p><strong>Trípodes: Contamos con 2</strong></p>
+        <ul><li>Trípode 1 m, Trípode 1,50 m</li></ul>
+        <p><strong>Iluminación:</strong></p>
+        <ul>
+            <li>Lámpara led</li>
+            <li>Luces domésticas</li>
+            <li>Extensiones eléctricas</li>
+            <li>Celular como apoyo para pruebas de encuadre</li>
+            <li>Elementos para controlar la luz: Cartulinas negras, telas blancas, papel mantequilla o difusores caseros.</li>
+        </ul>
+
+        <!-- SONIDO -->
+        <h2 id="sonido">SONIDO:</h2>
+        <p>El sonido es uno de los elementos principales para construir esa tensión psicológica que va a tener nuestro cortometraje. La propuesta no va a estar completamente dependiente de música constante, sino de una acumulación de ambientes, objetos en movimiento, respiraciones, pulsaciones, y el pitido de un monitor de signos vitales. El objetivo es que el espectador no solo vea el encierro, sino que lo escuche de manera progresiva. El apartamento, y los diversos espacios que aparecerán deberán tener identidades sonoras distintas, pero conectados por un mismo elemento, el deterioro físico y mental del escritor.</p>
+        <p>La importancia del sonido está en que permite expresar aquello que el personaje no verbaliza directamente. El miedo, la paranoia y la pérdida de control se trabajarán a través de la acumulación de ruidos mínimos, la repetición de ciertos sonidos y la alteración progresiva de voces. El pitido funciona como motivo sonoro principal: inicia como una señal y luego se conecta al monitor, convirtiéndose en una marca de deterioro físico y psicológico del escritor. Este recurso permitirá unir los distintos espacios de la narración, sin que haya necesidad de explicarlos visualmente todo el tiempo.</p>
+        <p>La música se utilizará de forma mínima. No se busca una banda sonora constante, sino una presencia puntual que refuerce momentos de transición, tensión o quiebre. En varias escenas será más importante dejar respirar el silencio, la respiración del personaje, o el sonido ambiente. La tensión tiene que surgir de esa cercanía de los sonidos cotidianos, por eso mismo se le dará importancia y prioridad a los sonidos internos del espacio y del cuerpo.</p>
+        <p>Como referente sonoro se tomará Mother! (¡Madre! Darren Aronofsky, 2017), por la manera en que el espacio doméstico se vuelve opresivo a través del sonido. Nos interesa como usan la acumulacion progresiva de voces, y demás sonidos variados, hasta convertir una casa común en un lugar incómodo y saturado. Esta lógica buscamos aplicarla adaptándola al apartamento, al hospital y a los espacios mentales, buscando que el sonido haga sentir que el personaje pierde control sobre el lugar que habita.</p>
+
+        <h3>Tecnica de Grabacion</h3>
+        <p>Durante el rodaje se utiliza un micrófono de solapa para capturar diálogos, respiraciones y sonidos cercanos al cuerpo de los personajes. El celular funcionará como grabadora de apoyo para registrar ambientes y sonidos específicos del espacio. Se grabaran foleys (efecto sala) propios para reforzar acciones importantes: apertura y cierre de puertas, pasos, manipulación de bolsas, limpieza con alcohol, roce de guantes, movimiento de cosas, golpes, cortinas, respiraciones.</p>
+        <p>En postproducción se trabajará la limpieza del audio, la superposición de voces, la variación de volumen y la construcción del ambiente. Se busca diferenciar los sonidos realistas de los sonidos subjetivos, sin romper por completo la unidad del cortometraje, siendo el objetivo lograr que el espectador perciba lo que siente el escritor al mismo tiempo que lo está viendo o incluso antes de que la imagen lo haga evidente.</p>
+        
+        <h3>Equipo requerido</h3>
+        <ul>
+            <li>Micrófono de solapa</li>
+            <li>Celular como grabadora secundaria</li>
+            <li>Audífonos para monitoreo</li>
+            <li>Biblioteca propia de foleys</li>
+            <li>Software de edición: Davinci Resolve, Cap Cut, Audacity</li>
+        </ul>
+
+        <!-- MONTAJE -->
+        <h2 id="montaje">MONTAJE:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Lugar</th>
+                    <th>Justificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Zona A</strong></td>
+                    <td>Entrada del personaje principal.</td>
+                </tr>
+                <tr>
+                    <td><strong>Zona B</strong></td>
+                    <td>Pasillo en el cual el personaje del escritor se moviliza mayoritariamente.</td>
+                </tr>
+                <tr>
+                    <td><strong>Zona C</strong></td>
+                    <td>Habitación en la que se desarrollaran las crisis del escritor.</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="split-layout-3">
+            <div class="image-wrapper">
+                <div class="image-container">
+                    <img src="imagenes pag/zona a.jpeg" alt="Zona A">
+                </div>
+                <button class="btn-ampliar" onclick="openModal('imagenes pag/zona a.jpeg')">[ 🔍 Ampliar ]</button>
+            </div>
+            <div class="image-wrapper">
+                <div class="image-container">
+                    <img src="imagenes pag/zona b.jpeg" alt="Zona B">
+                </div>
+                <button class="btn-ampliar" onclick="openModal('imagenes pag/zona b.jpeg')">[ 🔍 Ampliar ]</button>
+            </div>
+            <div class="image-wrapper">
+                <div class="image-container">
+                    <img src="imagenes pag/zona z.jpeg" alt="Zona C">
+                </div>
+                <button class="btn-ampliar" onclick="openModal('imagenes pag/zona z.jpeg')">[ 🔍 Ampliar ]</button>
+            </div>
+        </div>
+
+        <p>…</p>
+
+        <!-- PROPUESTA DE CIRCULACIÓN -->
+        <h2 id="circulacion">6. PROPUESTA DE CIRCULACIÓN</h2>
+        
+        <h3>6.1. Estrategia de exhibición</h3>
+        <p>El cortometraje “La máscara de la muerte roja” está concebido para un público joven y adulto interesado en el suspenso, el drama de encierro y las narrativas de salud mental. Su formato breve y su estética de realismo contaminado lo hacen apto tanto para espacios de cine independiente como para plataformas digitales, por ello se plantea un circuito de exhibición escalonado</p>
+        
+        <h3>6.1.1 Circuito presencial</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Espacio</th>
+                    <th>Justificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Muestra interna en la facultad de artes plásticas y visuales</strong></td>
+                    <td>El primer objetivo es validar el proyecto antes pares y docentes. Se gestionará una sala con televisor, con invitación abierta a estudiantes de la universidad UPTC.</td>
+                </tr>
+                <tr>
+                    <td><strong>Festivales de cortometraje</strong></td>
+                    <td>Se seleccionarán convocatorias con categoría estudiantil o baja producción</td>
+                </tr>
+                <tr>
+                    <td><strong>Centros culturales de barrio y biblioteca públicas</strong></td>
+                    <td>Muchos de estos espacios cuentan con ciclos de cine independiente y están abiertos a recibir propuestas de realizadores locales</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>6.1.2 Circuito digital</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Plataforma</th>
+                    <th>Uso estratégico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Youtube</strong></td>
+                    <td>El corto se subirá a un canal de youtube con una descripción detallada y miniatura personaliza atrayendo la tenciòn del público</td>
+                </tr>
+                <tr>
+                    <td><strong>Instagram o TikTok</strong></td>
+                    <td>Acá se podrán agregar detrás de cámara y material gráfico</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p>La difusión será realizada íntegramente por el equipo de seis integrantes, creando perfiles unificados con nombre del grupo en perfiles de Instagram, Tiktok y Youtube en donde se verán trailer y cortos de la misma película y la publicación completa de la misma</p>
+
+        <h3>6.2 Público objetivo</h3>
+        <p><strong>Primario:</strong> Estudiantes y egresados de carreras artísticas, cine y psicológicas. Edad 18-30 años con interés en narrativas de encierro, suspenso y producciones independientes</p>
+        <p><strong>Secundario:</strong> Docentes y personal de salud interesado en representaciones de pandemia y la salud mental</p>
+
+        <!-- MOODBOARD -->
+        <h2 id="moodboard">7. MOODBOARD</h2>
+        
+        <div class="image-wrapper">
+            <div class="image-container">
+                <img src="imagenes pag/moodboard 1.png" alt="Moodboard 1">
+            </div>
+            <button class="btn-ampliar" onclick="openModal('imagenes pag/moodboard 1.png')">[ 🔍 Ampliar Imagen ]</button>
+        </div>
+
+        <div class="image-wrapper">
+            <div class="image-container">
+                <img src="imagenes pag/moodboard 2.png" alt="Moodboard 2">
+            </div>
+            <button class="btn-ampliar" onclick="openModal('imagenes pag/moodboard 2.png')">[ 🔍 Ampliar Imagen ]</button>
+        </div>
+
+        <div style="text-align: center; margin-top: 80px;">
             <p style="font-weight: bold; font-size: 14pt;">[ FIN DEL DOCUMENTO ]</p>
         </div>
     </div>
 
+    <!-- EL MODAL INVISIBLE PARA HACER ZOOM -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <script>
+        // Funciones para el Visor de Imágenes (Modal)
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("img01");
+
+        function openModal(imageSrc) {
+            modal.style.display = "block";
+            modalImg.src = imageSrc;
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Permitir cerrar el modal con la tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
