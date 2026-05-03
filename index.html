@@ -26,7 +26,7 @@
             align-items: center;
         }
 
-        /* CONTENEDOR PRINCIPAL (Una sola página continua) */
+        /* CONTENEDOR PRINCIPAL (Papel sucio y desgastado) */
         .document-wrapper {
             width: 100%;
             max-width: 210mm; /* Ancho estándar de lectura */
@@ -39,6 +39,23 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.8);
             position: relative;
             text-shadow: 0px 0px 1px rgba(0,0,0,0.2);
+            overflow: hidden; /* Para contener la capa de suciedad */
+        }
+
+        /* Capa de mugre y bordes quemados */
+        .document-wrapper::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            box-shadow: 
+                inset 0 0 120px rgba(50, 30, 10, 0.7), /* Bordes quemados */
+                inset 0 0 20px rgba(0, 0, 0, 0.8);
+            background: 
+                radial-gradient(circle at 15% 25%, rgba(60,40,20,0.08) 0%, transparent 20%),
+                radial-gradient(circle at 85% 75%, rgba(0,0,0,0.06) 0%, transparent 25%),
+                radial-gradient(circle at 50% 90%, rgba(90,40,10,0.05) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: 5;
         }
 
         .stamp {
@@ -58,19 +75,40 @@
         }
 
         /* TIPOGRAFÍA Y ESTRUCTURA */
-        h1, h2, h3, h4 { font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-top: 0; color: #000; }
+        h1, h2, h3, h4 { font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-top: 0; color: #000; position: relative; z-index: 6; }
         h1 { font-size: 26pt; text-align: center; border-bottom: 2px solid var(--text-ink); padding-bottom: 10px; margin-top: 50px; }
         h2 { font-size: 16pt; border-bottom: 1px dashed var(--border-ink); padding-bottom: 5px; margin-top: 50px; margin-bottom: 20px; scroll-margin-top: 40px; }
         h3 { font-size: 13pt; margin-top: 30px; text-decoration: underline; }
         
-        p, ul, li { font-size: 11pt; line-height: 1.6; text-align: justify; margin-bottom: 15px; }
+        p, ul, li { font-size: 11pt; line-height: 1.6; text-align: justify; margin-bottom: 15px; position: relative; z-index: 6; }
+
+        /* DETALLE DE CLIP DE PAPEL EN SECCIONES IMPORTANTES */
+        .clip-top-left { position: relative; }
+        .clip-top-left::after {
+            content: '';
+            position: absolute;
+            top: -25px;
+            left: 20px;
+            width: 30px;
+            height: 70px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 60'%3E%3Cpath d='M12 55c-3.3 0-6-2.7-6-6V15c0-2.2 1.8-4 4-4s4 1.8 4 4v32c0 1.1-.9 2-2 2s-2-.9-2-2V17h2v28c0 .3.2.5.5.5s.5-.2.5-.5V15c0-1.1-.9-2-2-2s-2 .9-2 2v34c0 2.2 1.8 4 4 4s4-1.8 4-4V11c0-3.3-2.7-6-6-6S6 7.7 6 11v38c0 4.4 3.6 8 8 8s8-3.6 8-8V15h-2v34c0 3.3-2.7 6-6 6z' fill='%234a4c4e'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            filter: drop-shadow(2px 3px 2px rgba(0,0,0,0.5));
+            transform: rotate(-8deg);
+            z-index: 20;
+            pointer-events: none;
+        }
 
         /* TABLA DE CONTENIDO */
         .toc {
-            background-color: rgba(0,0,0,0.05);
+            background-color: rgba(0,0,0,0.03);
             border: 1px solid var(--border-ink);
             padding: 20px;
             margin: 40px 0;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 2px 2px 5px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 6;
         }
         .toc h3 { margin-top: 0; text-align: center; border-bottom: 1px solid var(--border-ink); padding-bottom: 10px; border: none; }
         .toc ul { list-style-type: none; padding-left: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -83,8 +121,10 @@
             border: 2px solid var(--border-ink);
             padding: 20px;
             margin: 30px 0;
-            background-color: rgba(0,0,0,0.02);
+            background-color: rgba(255,255,255,0.1);
             position: relative;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            z-index: 6;
         }
         .ficha-tecnica::before {
             content: "DATOS DEL EXPEDIENTE / REGISTRO";
@@ -104,16 +144,18 @@
         }
         .ficha-grid strong { text-decoration: underline; text-underline-offset: 4px; }
 
-        /* FORMATO DEL GUION (Fondo blanco, formato real) */
+        /* FORMATO DEL GUION (Papel más limpio pero envejecido) */
         .script-container {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #fbfbf9;
+            color: #111;
             padding: 40px;
             border: 1px solid #ccc;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: inset 0 0 40px rgba(120, 100, 70, 0.15), 0 5px 15px rgba(0,0,0,0.3);
             margin: 30px 0;
             font-family: 'Courier New', Courier, monospace;
             text-shadow: none;
+            position: relative;
+            z-index: 6;
         }
         .script-text {
             white-space: pre-wrap;
@@ -124,45 +166,92 @@
             font-weight: bold;
         }
 
-        /* IMÁGENES Y BOTÓN DE AMPLIAR */
+        /* DISEÑO METÁLICO HOSPITAL */
+        .hospital-metal-plate {
+            background: 
+                linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.6)),
+                repeating-linear-gradient(45deg, #23282b, #23282b 10px, #1a1e20 10px, #1a1e20 20px);
+            background-color: #23282b;
+            border: 2px solid #0a0c0d;
+            border-top-color: #4a545a;
+            border-left-color: #4a545a;
+            box-shadow: 
+                inset 0 0 50px rgba(0,0,0,0.9),
+                5px 5px 15px rgba(0,0,0,0.6);
+            color: #b0c4de; /* Tono azul/gris frío para el texto */
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            z-index: 6;
+        }
+        /* Remaches en las esquinas */
+        .hospital-metal-plate::before, .hospital-metal-plate::after,
+        .rivet-tr, .rivet-bl {
+            content: ''; position: absolute; width: 14px; height: 14px;
+            background: radial-gradient(circle at 30% 30%, #889296, #222);
+            border-radius: 50%; 
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.8), inset -1px -1px 3px rgba(0,0,0,0.8);
+        }
+        .hospital-metal-plate::before { top: 12px; left: 12px; }
+        .hospital-metal-plate::after { bottom: 12px; right: 12px; }
+        .rivet-tr { top: 12px; right: 12px; }
+        .rivet-bl { bottom: 12px; left: 12px; }
+
+        .hospital-metal-plate h3, .hospital-metal-plate p, .hospital-metal-plate li { color: #d1e0e5; text-shadow: 1px 1px 2px #000; }
+        .hospital-metal-plate strong { color: #fff; }
+
+        /* IMÁGENES CLICKABLES CON CINTA ADHESIVA */
         .image-wrapper {
             margin: 20px 0;
             text-align: center;
+            position: relative;
+            z-index: 6;
         }
+        /* Efecto de Cinta Adhesiva */
+        .tape {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            width: 120px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            backdrop-filter: blur(2px);
+            z-index: 10;
+            pointer-events: none;
+        }
+        .tape:after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2) 50%, transparent);
+        }
+        
         .image-container {
             width: 100%;
             background-color: rgba(0,0,0,0.03);
             border: 1px solid var(--border-ink);
             padding: 10px;
             box-sizing: border-box;
-            position: relative; /* Permite posicionar el botón dentro */
+            position: relative;
+            cursor: zoom-in; /* Cursor de lupa */
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s;
+            box-shadow: 2px 3px 6px rgba(0,0,0,0.3);
         }
         .image-container img { 
             width: 100%; 
             height: auto; 
             display: block; 
-            filter: sepia(0.2) contrast(1.1); 
-            transition: filter 0.3s;
+            filter: sepia(0.25) contrast(1.1) brightness(0.9); 
+            transition: filter 0.4s;
         }
-        .image-container img:hover {
-            filter: sepia(0) contrast(1);
+        .image-container:hover {
+            transform: scale(1.02) translateY(-2px);
+            box-shadow: 5px 8px 15px rgba(0,0,0,0.5);
         }
-        .btn-ampliar {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(26, 28, 29, 0.85);
-            color: var(--bg-paper);
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            border: 1px solid var(--border-ink);
-            padding: 8px 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 11px;
-            z-index: 10;
+        .image-container:hover img {
+            filter: sepia(0) contrast(1.05) brightness(1.05);
         }
-        .btn-ampliar:hover { background-color: var(--accent-blood); color: #fff; border-color: var(--accent-blood); }
 
         /* LAYOUTS MULTIPLES */
         .split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; align-items: start; }
@@ -170,7 +259,7 @@
         .movie-reference { margin-bottom: 50px; }
 
         /* TABLAS ESTILO INFORME */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 20px; font-size: 10pt; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 20px; font-size: 10pt; position: relative; z-index: 6;}
         th, td { border: 1px solid var(--text-ink); padding: 10px; text-align: left; vertical-align: top; }
         th { font-weight: bold; text-decoration: underline; background-color: rgba(0,0,0,0.05); }
 
@@ -179,9 +268,11 @@
             display: none; position: fixed; z-index: 9999; padding-top: 50px;
             left: 0; top: 0; width: 100%; height: 100%; overflow: auto;
             background-color: rgba(0,0,0,0.9);
+            backdrop-filter: blur(5px);
         }
         .modal-content {
             margin: auto; display: block; max-width: 90%; max-height: 85vh; object-fit: contain;
+            border: 2px solid #333; box-shadow: 0 0 30px rgba(0,0,0,0.8);
         }
         .close {
             position: absolute; top: 15px; right: 35px; color: #f1f1f1;
@@ -205,7 +296,7 @@
         <p style="text-align: center; letter-spacing: 2px; font-weight: bold;">CARPETA DE PRODUCCIÓN</p>
 
         <!-- FICHA TÉCNICA -->
-        <div class="ficha-tecnica">
+        <div class="ficha-tecnica clip-top-left">
             <div class="ficha-grid">
                 <div><strong>AÑO:</strong></div>
                 <div>2026</div>
@@ -222,7 +313,7 @@
         </div>
 
         <!-- TABLA DE CONTENIDO -->
-        <div class="toc">
+        <div class="toc clip-top-left">
             <h3>ÍNDICE DEL EXPEDIENTE</h3>
             <ul>
                 <li><a href="#sinopsis">Sinopsis</a></li>
@@ -257,7 +348,7 @@
 
         <!-- GUION -->
         <h2 id="guion">GUIÓN</h2>
-        <div class="script-container">
+        <div class="script-container clip-top-left">
             <div class="script-text">Personajes: 
 Escritor (Simón)= Rojo sangre
 Enfermero(a) 1=  Azul tristeza 
@@ -579,45 +670,49 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
         <p>La saturación del color de los fragmentos contrasta deliberadamente con el tono general del apartamento, que se mantiene en grises, beiges deteriorados y blancos sucios. Cuando un fragmento entra en escena, su color irrumpe en ese ambiente como algo que no debería estar ahí.</p>
         <p>La bata roja del doctor es el único elemento cromático que no pertenece al sistema de los cinco fragmentos. Es un rojo diferente al de cualquier otro elemento visual del corto: más oscuro, más definitivo. Aparece una sola vez y no necesita repetirse.</p>
 
-        <!-- TONO Y PALETA -->
+        <!-- TONO Y PALETA (CON DISEÑO METÁLICO) -->
         <h3 id="color">Tono y paleta de colores</h3>
         <p>La paleta general estará inspirada en espacios clínicos y psiquiátricos. No se buscará un blanco puro, sino que quiere lograr una atmósfera fría, gastada y emocionalmente incómoda.</p>
         
-        <div class="split-layout">
-            <div>
-                <p><strong>Los colores principales serán:</strong></p>
-                <ul>
-                    <li>HOSPITAL</li>
-                    <li>APARTAMENTO</li>
-                    <li>PASILLO</li>
-                </ul>
-                <p>Estos tonos deberán aparecer tanto en el apartamento como en el hospital y el pasillo mental, para que los tres espacios parezcan conectados por la misma crisis interior.</p>
-            </div>
-            <div class="image-wrapper">
-                <div class="image-container">
-                    <img src="imagenes pag/paleta hospital aoartamento.png" alt="Paleta ubicaciones">
-                    <button class="btn-ampliar" onclick="openModal('imagenes pag/paleta hospital aoartamento.png')">[ 🔍 Ampliar ]</button>
+        <div class="hospital-metal-plate">
+            <div class="rivet-tr"></div><div class="rivet-bl"></div>
+            
+            <div class="split-layout">
+                <div>
+                    <p><strong>Los colores principales serán:</strong></p>
+                    <ul>
+                        <li>HOSPITAL</li>
+                        <li>APARTAMENTO</li>
+                        <li>PASILLO</li>
+                    </ul>
+                    <p>Estos tonos deberán aparecer tanto en el apartamento como en el hospital y el pasillo mental, para que los tres espacios parezcan conectados por la misma crisis interior.</p>
+                </div>
+                <div class="image-wrapper" style="margin: 0;">
+                    <div class="tape"></div>
+                    <div class="image-container" onclick="openModal('imagenes pag/paleta hospital aoartamento.png')" style="border-color: #111;">
+                        <img src="imagenes pag/paleta hospital aoartamento.png" alt="Paleta ubicaciones">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <p><strong>ACENTOS NARRATIVOS COLOR DE HABITACIONES MENTALES</strong></p>
-        <div class="split-layout" style="align-items: center;">
-            <div class="image-wrapper" style="margin: 0;">
-                <div class="image-container">
-                    <img src="imagenes pag/paleta habitaciones.png" alt="Paleta habitaciones">
-                    <button class="btn-ampliar" onclick="openModal('imagenes pag/paleta habitaciones.png')">[ 🔍 Ampliar ]</button>
+            <p><strong>ACENTOS NARRATIVOS COLOR DE HABITACIONES MENTALES</strong></p>
+            <div class="split-layout" style="align-items: center;">
+                <div class="image-wrapper" style="margin: 0;">
+                    <div class="tape"></div>
+                    <div class="image-container" onclick="openModal('imagenes pag/paleta habitaciones.png')" style="border-color: #111;">
+                        <img src="imagenes pag/paleta habitaciones.png" alt="Paleta habitaciones">
+                    </div>
                 </div>
-            </div>
-            <div>
-                <ul>
-                    <li>VERDE - IRA</li>
-                    <li>NARANJA - ANSIEDAD</li>
-                    <li>VIOLETA - MELANCOLÍA</li>
-                    <li>AZUL - TRISTEZA</li>
-                    <li>BLANCO - MIEDO</li>
-                    <li>ROJO - DOCTOR EN REPRESENTACIÓN DE LA MUERTE</li>
-                </ul>
+                <div>
+                    <ul>
+                        <li>VERDE - IRA</li>
+                        <li>NARANJA - ANSIEDAD</li>
+                        <li>VIOLETA - MELANCOLÍA</li>
+                        <li>AZUL - TRISTEZA</li>
+                        <li>BLANCO - MIEDO</li>
+                        <li>ROJO - DOCTOR EN REPRESENTACIÓN DE LA MUERTE</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -630,17 +725,17 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
         <h3>Referentes Visuales</h3>
         <div class="split-layout">
             <div class="image-wrapper">
+                <div class="tape"></div>
                 <p style="text-align: center; font-size: 10px;">FOTOGRAFÍA DE UNA HABITACIÓN DE UN HOSPITAL</p>
-                <div class="image-container">
+                <div class="image-container" onclick="openModal('imagenes pag/cuarto hospital.png')">
                     <img src="imagenes pag/cuarto hospital.png" alt="Habitación Hospital">
-                    <button class="btn-ampliar" onclick="openModal('imagenes pag/cuarto hospital.png')">[ 🔍 Ampliar ]</button>
                 </div>
             </div>
             <div class="image-wrapper">
+                <div class="tape"></div>
                 <p style="text-align: center; font-size: 10px;">FOTOGRAFÍA DE UN PASILLO LARGO DE HOSPITAL</p>
-                <div class="image-container">
+                <div class="image-container" onclick="openModal('imagenes pag/hospital.png')">
                     <img src="imagenes pag/hospital.png" alt="Pasillo Hospital">
-                    <button class="btn-ampliar" onclick="openModal('imagenes pag/hospital.png')">[ 🔍 Ampliar ]</button>
                 </div>
             </div>
         </div>
@@ -652,9 +747,9 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
         <div class="movie-reference">
             <p><strong>28 DAYS LATER (Exterminio, Danny Boyle, 2002):</strong> De este referente tenemos en cuenta los planos, en el inicio de esta película un repartidor sale del hospital poco después de estar en coma, al salir a las calles, se encuentra con una realidad cruda y vacía, haciendo uso de planos generales, planos medios, detalle, subjetivos, también cabe destacar el uso de la cámara en manos para darle un movimiento natural e inestable, acompañado del uso de plano holandes que genera inestabilidad y desorientación.</p>
             <div class="image-wrapper">
-                <div class="image-container">
+                <div class="tape"></div>
+                <div class="image-container" onclick="openModal('imagenes pag/28 dias.png')">
                     <img src="imagenes pag/28 dias.png" alt="28 Days Later">
-                    <button class="btn-ampliar" onclick="openModal('imagenes pag/28 dias.png')">[ 🔍 Ampliar ]</button>
                 </div>
             </div>
         </div>
@@ -662,9 +757,9 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
         <div class="movie-reference">
             <p><strong>Black Swan (cisne negro, Darren Aronofsk, 2010):</strong> En esta pelicula nosotros encontramos el tratamiento psicologico del cuerpo. La cámara deberá hacer acercamientos al rostro, a la respiración, a los movimientos torpes y a los momentos donde el personaje (escritor) deja de distinguir la delgada línea entre la realidad y su percepción alterada. Encontramos la forma de encarnar ese sentimiento de cautiverio y paranoia por medio del cuerpo del escritor.</p>
             <div class="image-wrapper">
-                <div class="image-container">
+                <div class="tape"></div>
+                <div class="image-container" onclick="openModal('imagenes pag/cisne negro.png')">
                     <img src="imagenes pag/cisne negro.png" alt="Black Swan">
-                    <button class="btn-ampliar" onclick="openModal('imagenes pag/cisne negro.png')">[ 🔍 Ampliar ]</button>
                 </div>
             </div>
         </div>
@@ -672,9 +767,9 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
         <div class="movie-reference">
             <p><strong>Sleepy Hollow (La leyenda del jinete sin cabeza, Tim Burton, 1999):</strong> Nos ayuda, dándonos una guía de la atmósfera cromática general. No quiere decir que tomemos su fantasía gótica de manera literal, sino esa frialdad visual, tonos desaturados, sombras, niebla, grises, lograr que cada espacio tenga una sensación fúnebre. Tenemos en cuenta que esta paleta de colores hará que tonos como el rojo, en su momento tengan más fuerza en pantalla.</p>
             <div class="image-wrapper">
-                <div class="image-container">
+                <div class="tape"></div>
+                <div class="image-container" onclick="openModal('imagenes pag/sleepy.png')">
                     <img src="imagenes pag/sleepy.png" alt="Sleepy Hollow">
-                    <button class="btn-ampliar" onclick="openModal('imagenes pag/sleepy.png')">[ 🔍 Ampliar ]</button>
                 </div>
             </div>
         </div>
@@ -682,9 +777,9 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
         <div class="movie-reference">
             <p><strong>Panic Room (La habitación del pánico, David Fincher, 2002):</strong> Esta nos ayuda ver los escenarios, especialmente el apartamento como un espacio de encierro. Nos interesa la manera en la que puertas, habitaciones, pasillos y límites físicos dejan de ser sólo elementos neutros y se convierten en parte de la tensión. En nuestro corto, la puerta principal, la ventana y el pasillo funcionan como fronteras: No buscan solo separar lugares, también separar el estado mental del protagonista.</p>
             <div class="image-wrapper">
-                <div class="image-container">
+                <div class="tape"></div>
+                <div class="image-container" onclick="openModal('imagenes pag/panicroom.png')">
                     <img src="imagenes pag/panicroom.png" alt="Panic Room">
-                    <button class="btn-ampliar" onclick="openModal('imagenes pag/panicroom.png')">[ 🔍 Ampliar ]</button>
                 </div>
             </div>
         </div>
@@ -702,9 +797,9 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
                     <li>Permite trabajar diferentes extremos, 18mm ampliación del espacio, 35 mm o 55 mm planos cerrados del rostro, manos y objetos.</li>
                 </ul>
                 <div class="image-wrapper">
-                    <div class="image-container">
+                    <div class="tape"></div>
+                    <div class="image-container" onclick="openModal('imagenes pag/canont5i.png')">
                         <img src="imagenes pag/canont5i.png" alt="Canon T5i">
-                        <button class="btn-ampliar" onclick="openModal('imagenes pag/canont5i.png')">[ 🔍 Ampliar ]</button>
                     </div>
                 </div>
             </div>
@@ -714,9 +809,9 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
                     <li>Apoyo para planos detalle, planos comprimidos del pasillo, tomas de zoom, tomas donde se necesite aislar al personaje del fondo.</li>
                 </ul>
                 <div class="image-wrapper">
-                    <div class="image-container">
+                    <div class="tape"></div>
+                    <div class="image-container" onclick="openModal('imagenes pag/nikon.png')">
                         <img src="imagenes pag/nikon.png" alt="Nikon B700">
-                        <button class="btn-ampliar" onclick="openModal('imagenes pag/nikon.png')">[ 🔍 Ampliar ]</button>
                     </div>
                 </div>
             </div>
@@ -780,21 +875,21 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
         
         <div class="split-layout-3">
             <div class="image-wrapper">
-                <div class="image-container">
+                <div class="tape"></div>
+                <div class="image-container" onclick="openModal('imagenes pag/zona a.jpeg')">
                     <img src="imagenes pag/zona a.jpeg" alt="Zona A">
-                    <button class="btn-ampliar" onclick="openModal('imagenes pag/zona a.jpeg')">[ 🔍 Ampliar ]</button>
                 </div>
             </div>
             <div class="image-wrapper">
-                <div class="image-container">
+                <div class="tape"></div>
+                <div class="image-container" onclick="openModal('imagenes pag/zona b.jpeg')">
                     <img src="imagenes pag/zona b.jpeg" alt="Zona B">
-                    <button class="btn-ampliar" onclick="openModal('imagenes pag/zona b.jpeg')">[ 🔍 Ampliar ]</button>
                 </div>
             </div>
             <div class="image-wrapper">
-                <div class="image-container">
+                <div class="tape"></div>
+                <div class="image-container" onclick="openModal('imagenes pag/zona z.jpeg')">
                     <img src="imagenes pag/zona z.jpeg" alt="Zona C">
-                    <button class="btn-ampliar" onclick="openModal('imagenes pag/zona z.jpeg')">[ 🔍 Ampliar ]</button>
                 </div>
             </div>
         </div>
@@ -861,20 +956,20 @@ Acto final, enfoque a la pantalla del televisor con el noticiero.
         <h2 id="moodboard">7. MOODBOARD</h2>
         
         <div class="image-wrapper">
-            <div class="image-container">
+            <div class="tape"></div>
+            <div class="image-container" onclick="openModal('imagenes pag/moodboard 1.png')">
                 <img src="imagenes pag/moodboard 1.png" alt="Moodboard 1">
-                <button class="btn-ampliar" onclick="openModal('imagenes pag/moodboard 1.png')">[ 🔍 Ampliar ]</button>
             </div>
         </div>
 
         <div class="image-wrapper">
-            <div class="image-container">
+            <div class="tape"></div>
+            <div class="image-container" onclick="openModal('imagenes pag/moodboard 2.png')">
                 <img src="imagenes pag/moodboard 2.png" alt="Moodboard 2">
-                <button class="btn-ampliar" onclick="openModal('imagenes pag/moodboard 2.png')">[ 🔍 Ampliar ]</button>
             </div>
         </div>
 
-        <div style="text-align: center; margin-top: 80px;">
+        <div style="text-align: center; margin-top: 80px; position: relative; z-index: 6;">
             <p style="font-weight: bold; font-size: 14pt;">[ FIN DEL DOCUMENTO ]</p>
         </div>
     </div>
